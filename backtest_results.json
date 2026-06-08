@@ -1,0 +1,35 @@
+{
+  "AAE-20260608-2322-EME": {
+    "narrative": "Filesharing",
+    "lifecycle_stage": "EMERGENCE",
+    "opportunity_score": 60,
+    "asset_results": [
+      {
+        "total_return_pct": -11.87,
+        "max_drawdown_pct": 11.87,
+        "sharpe_ratio": -7.08,
+        "initial_value": 1000.0,
+        "final_value": 881.34,
+        "days_simulated": 29,
+        "symbol": "FIL",
+        "exit_reason": "stop loss -15%"
+      },
+      {
+        "total_return_pct": -12.9,
+        "max_drawdown_pct": 12.9,
+        "sharpe_ratio": -4.71,
+        "initial_value": 1000.0,
+        "final_value": 871.01,
+        "days_simulated": 29,
+        "symbol": "AR",
+        "exit_reason": "stop loss -15%"
+      }
+    ]
+  },
+  "AAE-20260608-2322-ACC": {
+    "narrative": "Nomad Capital",
+    "lifecycle_stage": "ACCELERATION",
+    "opportunity_score": 60,
+    "asset_results": []
+  }
+}
