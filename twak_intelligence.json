@@ -1,0 +1,78 @@
+{
+  "integration": "Trust Wallet Agent Kit",
+  "twak_version": "0.18.0",
+  "generated_at": "2026-06-09T22:15:59.705322",
+  "live_prices": {
+    "BNB": {
+      "symbol": "BNB",
+      "price_usd": 596.106991,
+      "chain": "bsc",
+      "source": "Trust Wallet Agent Kit"
+    },
+    "ETH": {
+      "symbol": "ETH",
+      "price_usd": 1659.161514,
+      "chain": "ethereum",
+      "source": "Trust Wallet Agent Kit"
+    },
+    "BTC": {
+      "symbol": "BTC",
+      "price_usd": 62089.254712,
+      "chain": "bitcoin",
+      "source": "Trust Wallet Agent Kit"
+    }
+  },
+  "trending_tokens": [
+    {
+      "symbol": "SPCX",
+      "price": "$56.7699",
+      "change_24h": "+226578.90%"
+    },
+    {
+      "symbol": "VELVET",
+      "price": "$0.4000",
+      "change_24h": "+27.66%"
+    },
+    {
+      "symbol": "ZEREBRO",
+      "price": "$0.0280",
+      "change_24h": "+10.49%"
+    },
+    {
+      "symbol": "LIT",
+      "price": "$1.6485",
+      "change_24h": "+9.64%"
+    },
+    {
+      "symbol": "IDOL",
+      "price": "$0.0299",
+      "change_24h": "+8.50%"
+    },
+    {
+      "symbol": "AGT",
+      "price": "$0.0164",
+      "change_24h": "+3.05%"
+    },
+    {
+      "symbol": "Fartcoin",
+      "price": "$0.1204",
+      "change_24h": "+1.07%"
+    },
+    {
+      "symbol": "WOD",
+      "price": "$0.0130",
+      "change_24h": "+0.63%"
+    },
+    {
+      "symbol": "BTW",
+      "price": "$0.0781",
+      "change_24h": "+0.29%"
+    },
+    {
+      "symbol": "PLAY",
+      "price": "$0.1070",
+      "change_24h": "+0.26%"
+    }
+  ],
+  "cross_validation": "CMC narrative tokens verified against Trust Wallet infrastructure"
+}
