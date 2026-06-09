@@ -40,11 +40,11 @@ def fetch_category_tokens(category_name, limit=5):
         tokens.append({
             "name": coin.get("name"),
             "symbol": coin.get("symbol"),
-            "price": round(quote.get("price", 0), 4),
-            "change_24h": round(quote.get("percent_change_24h", 0), 2),
-            "change_7d": round(quote.get("percent_change_7d", 0), 2),
-            "volume_24h": round(quote.get("volume_24h", 0), 0),
-            "market_cap": round(quote.get("market_cap", 0), 0),
+            "price": round(quote.get("price") or 0, 4),
+            "change_24h": round(quote.get("percent_change_24h") or 0, 2),
+            "change_7d": round(quote.get("percent_change_7d") or 0, 2),
+            "volume_24h": round(quote.get("volume_24h") or 0, 0),
+            "market_cap": round(quote.get("market_cap") or 0, 0),
         })
 
     return tokens

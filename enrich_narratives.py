@@ -67,11 +67,11 @@ def fetch_token_derivatives(symbol):
 
     return {
         "symbol": symbol,
-        "volume_7d": round(quote.get("volume_7d", 0), 0),
-        "volume_30d": round(quote.get("volume_30d", 0), 0),
-        "change_7d": round(quote.get("percent_change_7d", 0), 2),
-        "change_30d": round(quote.get("percent_change_30d", 0), 2),
-        "market_cap": round(quote.get("market_cap", 0), 0),
+        "volume_7d": round(quote.get("volume_7d") or 0, 0),
+        "volume_30d": round(quote.get("volume_30d") or 0, 0),
+        "change_7d": round(quote.get("percent_change_7d") or 0, 2),
+        "change_30d": round(quote.get("percent_change_30d") or 0, 2),
+        "market_cap": round(quote.get("market_cap") or 0, 0),
     }
 
 
