@@ -1,0 +1,139 @@
+{
+  "integration": "CMC x402 Pay-Per-Call",
+  "protocol": "x402 (Coinbase)",
+  "network": "Base (eip155:8453)",
+  "asset": "USDC",
+  "cost_per_call": "$0.01",
+  "generated_at": "2026-06-09T22:41:58.916313",
+  "payer_wallet": "0xcc582aF540760db41bCD1a34A8aA49098ee88868",
+  "flows_demonstrated": [
+    {
+      "endpoint": "/cryptocurrency/quotes/latest?id=1",
+      "challenge": {
+        "x402Version": 2,
+        "error": "Payment required",
+        "resource": {
+          "url": "/cryptocurrency/quotes/latest?id=1",
+          "description": "CMC crypto narrative data API"
+        },
+        "accepts": [
+          {
+            "scheme": "exact",
+            "network": "eip155:8453",
+            "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+            "amount": "10000",
+            "payTo": "0x271189c860DB25bC43173B0335784aD68a680908",
+            "maxTimeoutSeconds": 30,
+            "extra": {
+              "name": "USD Coin",
+              "version": "2",
+              "x402PaymentConfigId": "699dbab79f32ffde650104aa"
+            }
+          }
+        ]
+      },
+      "payment": {
+        "x402Version": 2,
+        "scheme": "exact",
+        "network": "eip155:8453",
+        "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+        "amount": "10000",
+        "payTo": "0x271189c860DB25bC43173B0335784aD68a680908",
+        "payer": "0xcc582aF540760db41bCD1a34A8aA49098ee88868",
+        "timestamp": 1781041314,
+        "nonce": "5fa252f9a16b6a81"
+      },
+      "signature_preview": "eyJhbGciOiAiRVMyNTYiLCAidHlwIjogIkpXVCJ9...",
+      "response_size_bytes": 68,
+      "status": "SIMULATED \u2014 real flow requires USDC on Base mainnet",
+      "real_endpoint": "https://pro-api.coinmarketcap.com/x402/v3/cryptocurrency/quotes/latest?id=1",
+      "cost_per_call": "$0.01 USDC"
+    },
+    {
+      "endpoint": "/cryptocurrency/listings/latest?limit=5",
+      "challenge": {
+        "x402Version": 2,
+        "error": "Payment required",
+        "resource": {
+          "url": "/cryptocurrency/listings/latest?limit=5",
+          "description": "CMC crypto narrative data API"
+        },
+        "accepts": [
+          {
+            "scheme": "exact",
+            "network": "eip155:8453",
+            "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+            "amount": "10000",
+            "payTo": "0x271189c860DB25bC43173B0335784aD68a680908",
+            "maxTimeoutSeconds": 30,
+            "extra": {
+              "name": "USD Coin",
+              "version": "2",
+              "x402PaymentConfigId": "699dbab79f32ffde650104aa"
+            }
+          }
+        ]
+      },
+      "payment": {
+        "x402Version": 2,
+        "scheme": "exact",
+        "network": "eip155:8453",
+        "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+        "amount": "10000",
+        "payTo": "0x271189c860DB25bC43173B0335784aD68a680908",
+        "payer": "0xcc582aF540760db41bCD1a34A8aA49098ee88868",
+        "timestamp": 1781041316,
+        "nonce": "d475fcc036cf0b11"
+      },
+      "signature_preview": "eyJhbGciOiAiRVMyNTYiLCAidHlwIjogIkpXVCJ9...",
+      "response_size_bytes": 68,
+      "status": "SIMULATED \u2014 real flow requires USDC on Base mainnet",
+      "real_endpoint": "https://pro-api.coinmarketcap.com/x402/v3/cryptocurrency/listings/latest?limit=5",
+      "cost_per_call": "$0.01 USDC"
+    },
+    {
+      "endpoint": "/global-metrics/quotes/latest",
+      "challenge": {
+        "x402Version": 2,
+        "error": "Payment required",
+        "resource": {
+          "url": "/global-metrics/quotes/latest",
+          "description": "CMC crypto narrative data API"
+        },
+        "accepts": [
+          {
+            "scheme": "exact",
+            "network": "eip155:8453",
+            "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+            "amount": "10000",
+            "payTo": "0x271189c860DB25bC43173B0335784aD68a680908",
+            "maxTimeoutSeconds": 30,
+            "extra": {
+              "name": "USD Coin",
+              "version": "2",
+              "x402PaymentConfigId": "699dbab79f32ffde650104aa"
+            }
+          }
+        ]
+      },
+      "payment": {
+        "x402Version": 2,
+        "scheme": "exact",
+        "network": "eip155:8453",
+        "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+        "amount": "10000",
+        "payTo": "0x271189c860DB25bC43173B0335784aD68a680908",
+        "payer": "0xcc582aF540760db41bCD1a34A8aA49098ee88868",
+        "timestamp": 1781041317,
+        "nonce": "f99995b90902509d"
+      },
+      "signature_preview": "eyJhbGciOiAiRVMyNTYiLCAidHlwIjogIkpXVCJ9...",
+      "response_size_bytes": 68,
+      "status": "SIMULATED \u2014 real flow requires USDC on Base mainnet",
+      "real_endpoint": "https://pro-api.coinmarketcap.com/x402/v3/global-metrics/quotes/latest",
+      "cost_per_call": "$0.01 USDC"
+    }
+  ],
+  "status": "SIMULATION",
+  "note": "Real x402 requires USDC on Base mainnet. Protocol flow is production-identical. CMC x402 endpoint: https://pro-api.coinmarketcap.com/x402/v3/"
+}
