@@ -1,0 +1,17 @@
+{
+  "engine": "Attention Arbitrage Engine v2.0",
+  "network": "BSC Testnet",
+  "chain_id": 97,
+  "wallet_address": "0xcc582aF540760db41bCD1a34A8aA49098ee88868",
+  "agent_id": 1345,
+  "transaction_hash": "0xa3cc8ded130da273bb8e0fb9217c21addb6d1b14fee2fa978f2daa30c189863f",
+  "erc8004_registry": "0x8004A818BFB912233c491871b3d84c89A494BD9e",
+  "agent_info": {
+    "agentId": 1345,
+    "agentAddress": "0xcc582aF540760db41bCD1a34A8aA49098ee88868",
+    "agentWallet": "0xcc582aF540760db41bCD1a34A8aA49098ee88868",
+    "owner": "0xcc582aF540760db41bCD1a34A8aA49098ee88868",
+    "agentURI": "data:application/json;base64,eyJkZXNjcmlwdGlvbiI6IkFuIEFJLXBvd2VyZWQgbmFycmF0aXZlIGludGVsbGlnZW5jZSBzeXN0ZW0gdGhhdCBkZXRlY3RzIGF0dGVudGlvbi1wcmljZSBkaXZlcmdlbmNlLCBjbGFzc2lmaWVzIGxpZmVjeWNsZSBzdGFnZSwgcHJlZGljdHMgbmFycmF0aXZlIGhhbGYtbGlmZSwgYW5kIGdlbmVyYXRlcyBiYWNrdGVzdGFibGUgY3J5cHRvIHRyYWRpbmcgc3RyYXRlZ2llcyBiZWZvcmUgbWFya2V0IGNvbnNlbnN1cyBmb3Jtcy4iLCJpbWFnZSI6IiIsIm5hbWUiOiJhdHRlbnRpb24tYXJiaXRyYWdlLWVuZ2luZSIsInJlZ2lzdHJhdGlvbnMiOlt7ImFnZW50SWQiOjEzNDUsImFnZW50UmVnaXN0cnkiOiJlaXAxNTU6OTc6MHg4MDA0QTgxOEJGQjkxMjIzM2M0OTE4NzFiM2Q4NGM4OUE0OTRCRDllIn1dLCJzZXJ2aWNlcyI6W3siZW5kcG9pbnQiOiJodHRwczovL2dpdGh1Yi5jb20vcGhsbHAtdGFuc3RpYy9hYWUtc2tpbGwiLCJuYW1lIjoiQUFFLVNraWxsIiwidmVyc2lvbiI6IjIuMC4wIn1dLCJ0eXBlIjoiaHR0cHM6Ly9laXBzLmV0aGVyZXVtLm9yZy9FSVBTL2VpcC04MDA0I3JlZ2lzdHJhdGlvbi12MSJ9"
+  },
+  "hackathon": "BNB x CMC Hackathon Track 2"
+}
