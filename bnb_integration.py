@@ -232,6 +232,28 @@ if __name__ == "__main__":
     else:
         specs = list(data.values())
 
+    agent_registration = None
+    if os.path.exists("bnb_registration.json"):
+        with open("bnb_registration.json", "r") as f:
+            agent_registration = json.load(f)
+        print(f"  AAE On-Chain Identity:")
+        print(f"  Agent ID  : {agent_registration['agent_id']}")
+        print(f"  TX Hash   : {agent_registration['transaction_hash']}")
+        print(f"  Explorer  : https://testnet.bscscan.com/tx/{agent_registration['transaction_hash']}")
+        print()
+
     enriched = run_bnb_integration(specs)
+
+    if agent_registration:
+        for spec in enriched:
+            spec["bnb_execution_context"]["agent_id"] = agent_registration["agent_id"]
+            spec["bnb_execution_context"]["agent_tx"] = agent_registration["transaction_hash"]
+            spec["bnb_execution_context"]["agent_registry"] = agent_registration["erc8004_registry"]
+            spec["bnb_execution_context"]["bscscan"] = f"https://testnet.bscscan.com/tx/{agent_registration['transaction_hash']}"
+
+        with open("bnb_enriched_specs.json", "w") as f:
+            json.dump(enriched, f, indent=2)
+        print(f"  Updated specs with on-chain agent identity.")
+
     print(f"\n  Total specs enriched: {len(enriched)}")
     print("  BNB integration complete.")

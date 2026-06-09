@@ -80,7 +80,11 @@
       "executable_on_bsc": 0,
       "total_assets": 3,
       "bnb_sdk_version": "BNB AI Agent SDK v1.0",
-      "generated_at": "2026-06-09T20:51:11.235979"
+      "generated_at": "2026-06-09T21:47:57.210066",
+      "agent_id": 1345,
+      "agent_tx": "0xa3cc8ded130da273bb8e0fb9217c21addb6d1b14fee2fa978f2daa30c189863f",
+      "agent_registry": "0x8004A818BFB912233c491871b3d84c89A494BD9e",
+      "bscscan": "https://testnet.bscscan.com/tx/0xa3cc8ded130da273bb8e0fb9217c21addb6d1b14fee2fa978f2daa30c189863f"
     }
   },
   {
@@ -164,7 +168,11 @@
       "executable_on_bsc": 0,
       "total_assets": 3,
       "bnb_sdk_version": "BNB AI Agent SDK v1.0",
-      "generated_at": "2026-06-09T20:51:11.237363"
+      "generated_at": "2026-06-09T21:47:57.211068",
+      "agent_id": 1345,
+      "agent_tx": "0xa3cc8ded130da273bb8e0fb9217c21addb6d1b14fee2fa978f2daa30c189863f",
+      "agent_registry": "0x8004A818BFB912233c491871b3d84c89A494BD9e",
+      "bscscan": "https://testnet.bscscan.com/tx/0xa3cc8ded130da273bb8e0fb9217c21addb6d1b14fee2fa978f2daa30c189863f"
     }
   },
   {
@@ -269,7 +277,11 @@
       "executable_on_bsc": 3,
       "total_assets": 3,
       "bnb_sdk_version": "BNB AI Agent SDK v1.0",
-      "generated_at": "2026-06-09T20:51:11.238369"
+      "generated_at": "2026-06-09T21:47:57.211068",
+      "agent_id": 1345,
+      "agent_tx": "0xa3cc8ded130da273bb8e0fb9217c21addb6d1b14fee2fa978f2daa30c189863f",
+      "agent_registry": "0x8004A818BFB912233c491871b3d84c89A494BD9e",
+      "bscscan": "https://testnet.bscscan.com/tx/0xa3cc8ded130da273bb8e0fb9217c21addb6d1b14fee2fa978f2daa30c189863f"
     }
   },
   {
@@ -360,7 +372,11 @@
       "executable_on_bsc": 1,
       "total_assets": 3,
       "bnb_sdk_version": "BNB AI Agent SDK v1.0",
-      "generated_at": "2026-06-09T20:51:11.239364"
+      "generated_at": "2026-06-09T21:47:57.212284",
+      "agent_id": 1345,
+      "agent_tx": "0xa3cc8ded130da273bb8e0fb9217c21addb6d1b14fee2fa978f2daa30c189863f",
+      "agent_registry": "0x8004A818BFB912233c491871b3d84c89A494BD9e",
+      "bscscan": "https://testnet.bscscan.com/tx/0xa3cc8ded130da273bb8e0fb9217c21addb6d1b14fee2fa978f2daa30c189863f"
     }
   },
   {
@@ -451,7 +467,11 @@
       "executable_on_bsc": 1,
       "total_assets": 3,
       "bnb_sdk_version": "BNB AI Agent SDK v1.0",
-      "generated_at": "2026-06-09T20:51:11.239364"
+      "generated_at": "2026-06-09T21:47:57.213286",
+      "agent_id": 1345,
+      "agent_tx": "0xa3cc8ded130da273bb8e0fb9217c21addb6d1b14fee2fa978f2daa30c189863f",
+      "agent_registry": "0x8004A818BFB912233c491871b3d84c89A494BD9e",
+      "bscscan": "https://testnet.bscscan.com/tx/0xa3cc8ded130da273bb8e0fb9217c21addb6d1b14fee2fa978f2daa30c189863f"
     }
   }
 ]
