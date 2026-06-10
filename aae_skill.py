@@ -1,6 +1,6 @@
 """
-Attention Arbitrage Engine (AAE)
-=================================
+Attention Arbitrage Engine (AAE) v2.0
+=======================================
 An AI-powered narrative intelligence system that detects
 attention-price divergence, classifies lifecycle stage,
 predicts narrative half-life, forecasts rotation, and
@@ -8,11 +8,18 @@ generates backtestable trading strategies before market
 consensus forms.
 
 BNB x CMC Hackathon — Track 2
+GitHub: github.com/phllp-tanstic/aae-skill
+
+Stack:
+- CoinMarketCap Agent Hub (REST API + MCP + Skill Hub)
+- BNB AI Agent SDK (ERC-8004 on-chain identity)
+- Trust Wallet Agent Kit (self-custody signing + price feeds)
 """
 
 import json
 from datetime import datetime
-from generate_strategy import generate_all_specs
+from classify_lifecycle import classify_all
+from generate_strategy import generate_strategy_spec
 from predict_rotation import predict_rotation
 
 
@@ -25,10 +32,10 @@ STAGE_EMOJI = {
 }
 
 
-def print_dashboard(spec, classification):
-    """Print a narrative confidence dashboard for one spec."""
+def print_dashboard(enriched, classification):
+    """Print narrative intelligence dashboard for one narrative."""
     c = classification
-    e = spec
+    e = enriched
     stage = c.get("lifecycle_stage", "EMERGENCE")
     emoji = STAGE_EMOJI.get(stage, "⚪")
     analog = c.get("historical_analog", {})
@@ -60,15 +67,15 @@ def run_aae(top_n=5, save_output=True):
     """
     Master entry point for the Attention Arbitrage Engine.
 
-    Full pipeline:
-    1. Fetch trending narratives from CMC
-    2. Score velocity + relative attention alpha
-    3. Detect attention-price divergence
-    4. Enrich with macro regime context
-    5. AI lifecycle classification + half-life prediction
-    6. Historical analog matching
-    7. Narrative rotation forecasting
-    8. Generate backtestable strategy specifications
+    Single-pass pipeline (no duplicate API calls):
+    1. fetch_narratives     → CMC /v1/cryptocurrency/categories
+    2. score_velocity       → CMC /v1/global-metrics/quotes/latest
+    3. check_divergence     → CMC /v1/cryptocurrency/category
+    4. enrich_narratives    → CMC /v1/cryptocurrency/quotes/latest
+    5. classify_lifecycle   → Groq LLaMA 3.3 70B (AI reasoning)
+    6. predict_rotation     → Groq LLaMA 3.3 70B (rotation forecast)
+    7. generate_strategy    → Rule-based spec from lifecycle stage
+    8. Save output          → JSON strategy spec file
     """
 
     print()
@@ -80,20 +87,24 @@ def run_aae(top_n=5, save_output=True):
     print("=" * 65)
     print()
 
-    from classify_lifecycle import classify_all
+    # Step 1-5: Full enrichment + AI classification (single pipeline pass)
     classifications, global_context = classify_all(top_n=top_n)
 
-    from generate_strategy import generate_strategy_spec
+    # Step 6: Generate strategy specs from classifications
     specs = []
     for result in classifications:
         spec = generate_strategy_spec(result, global_context)
         specs.append(spec)
     specs.sort(key=lambda x: x["opportunity_score"], reverse=True)
 
-    import json as _json
-    with open("strategy_output.json", "w") as _f:
-        _json.dump(specs, _f, indent=2)
+    # Save base strategy output for backtester and integrations
+    with open("strategy_output.json", "w") as f:
+        json.dump(specs, f, indent=2)
 
+    # Step 7: Narrative rotation forecast
+    rotation = predict_rotation(classifications)
+
+    # Display narrative intelligence dashboard
     print()
     print("=" * 65)
     print("  NARRATIVE INTELLIGENCE DASHBOARD")
@@ -105,11 +116,11 @@ def run_aae(top_n=5, save_output=True):
     for item in classifications:
         print_dashboard(item["enriched"], item["classification"])
 
+    # Display rotation forecast
     print()
     print("=" * 65)
     print("  NARRATIVE ROTATION FORECAST")
     print("=" * 65)
-    rotation = predict_rotation(classifications)
     print(f"  Current Leader    : {rotation['current_leader']}")
     print(f"  Rotation Target   : {rotation['rotation_target']}")
     print(f"  Confidence        : {round(rotation['rotation_confidence'] * 100)}%")
@@ -118,6 +129,7 @@ def run_aae(top_n=5, save_output=True):
     print(f"  Reasoning         : {rotation['reasoning']}")
     print(f"  Watchlist         : {rotation['watchlist']}")
 
+    # Display strategy specifications
     print()
     print("=" * 65)
     print("  STRATEGY SPECIFICATIONS")
@@ -135,6 +147,7 @@ def run_aae(top_n=5, save_output=True):
         print(f"     Horizon    : {spec['strategy']['time_horizon']}")
         print(f"     Assets     : {spec['backtestable_assets']}")
 
+    # Save full output
     if save_output:
         filename = f"aae_output_{datetime.now().strftime('%Y%m%d_%H%M')}.json"
         output = {

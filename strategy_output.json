@@ -1,165 +1,28 @@
 [
   {
-    "spec_id": "AAE-20260608-2158-EME",
-    "generated_at": "2026-06-08T21:58:59.860688",
-    "engine": "Attention Arbitrage Engine v1.0",
-    "narrative": "Filesharing",
-    "lifecycle_stage": "EMERGENCE",
-    "confidence": 0.68,
-    "opportunity_score": 80,
-    "risk_level": "HIGH",
-    "ai_reasoning": "The narrative is classified as EMERGENCE due to its high velocity score, significant volume change in the last 24 hours, and moderate conviction adjusted signal, despite the headwind from BTC dominance. The accelerating volume trend in the associated tokens also supports this classification. However, the BTC dominance regime may hinder the narrative's growth.",
-    "market_context": {
-      "regime": "BTC_DOMINANCE",
-      "btc_dominance": 58.2,
-      "regime_note": "Capital concentrated in BTC \u2014 altcoin narratives face headwind"
-    },
-    "signal_data": {
-      "velocity_score": 74.24,
-      "volume_change_24h": 162.2175,
-      "avg_price_change_24h": 7.9363,
-      "divergence_signal": "MODERATE CONVICTION \u2014 strong divergence but BTC dominance headwind"
-    },
-    "strategy": {
-      "type": "Early Position Accumulation",
-      "thesis": "Narrative attention is accelerating faster than price. Accumulate before mainstream discovery.",
-      "entry_rule": "Enter when velocity_score > 60 AND volume_change_24h > 100% AND avg_price_change_24h < 15%",
-      "entry_trigger": "Buy on next daily open after signal confirmation",
-      "position_size": "2-4% of portfolio per narrative (high risk, early stage)",
-      "position_size_adjustment": "REDUCE position size by 30% due to BTC dominance headwind",
-      "exit_rule_profit": "Exit 50% position at +40% price gain, trail stop on remainder",
-      "exit_rule_time": "Exit full position if velocity_score drops below 40 within 14 days",
-      "stop_loss": "-15% from entry price",
-      "time_horizon": "7-21 days",
-      "max_drawdown_tolerance": "15%",
-      "notes": "Split entry into 3 tranches over 48 hours to reduce timing risk"
-    },
-    "backtestable_assets": [
-      "BTT",
-      "AR",
-      "RIF"
-    ],
-    "backtest_parameters": {
-      "lookback_window": "30 days",
-      "entry_on": "daily open",
-      "benchmark": "BTC",
-      "fee_assumption": "0.1% per trade"
-    }
-  },
-  {
-    "spec_id": "AAE-20260608-2158-EME",
-    "generated_at": "2026-06-08T21:58:59.860688",
-    "engine": "Attention Arbitrage Engine v1.0",
-    "narrative": "xStocks Ecosystem",
-    "lifecycle_stage": "EMERGENCE",
-    "confidence": 0.68,
-    "opportunity_score": 80,
-    "risk_level": "HIGH",
-    "ai_reasoning": "The narrative is classified as EMERGENCE due to its high velocity score, significant volume change in the last 24 hours, and moderate conviction adjusted signal, despite the headwind from BTC dominance. The accelerating volume trend in the tokens also supports this classification. However, the low price change and market cap change in the last 24 hours indicate that the narrative is still in its early stages.",
-    "market_context": {
-      "regime": "BTC_DOMINANCE",
-      "btc_dominance": 58.2,
-      "regime_note": "Capital concentrated in BTC \u2014 altcoin narratives face headwind"
-    },
-    "signal_data": {
-      "velocity_score": 71.52,
-      "volume_change_24h": 205.88,
-      "avg_price_change_24h": 1.3916,
-      "divergence_signal": "MODERATE CONVICTION \u2014 strong divergence but BTC dominance headwind"
-    },
-    "strategy": {
-      "type": "Early Position Accumulation",
-      "thesis": "Narrative attention is accelerating faster than price. Accumulate before mainstream discovery.",
-      "entry_rule": "Enter when velocity_score > 60 AND volume_change_24h > 100% AND avg_price_change_24h < 15%",
-      "entry_trigger": "Buy on next daily open after signal confirmation",
-      "position_size": "2-4% of portfolio per narrative (high risk, early stage)",
-      "position_size_adjustment": "REDUCE position size by 30% due to BTC dominance headwind",
-      "exit_rule_profit": "Exit 50% position at +40% price gain, trail stop on remainder",
-      "exit_rule_time": "Exit full position if velocity_score drops below 40 within 14 days",
-      "stop_loss": "-15% from entry price",
-      "time_horizon": "7-21 days",
-      "max_drawdown_tolerance": "15%",
-      "notes": "Split entry into 3 tranches over 48 hours to reduce timing risk"
-    },
-    "backtestable_assets": [
-      "TBLLX",
-      "STRCX",
-      "INTCX"
-    ],
-    "backtest_parameters": {
-      "lookback_window": "30 days",
-      "entry_on": "daily open",
-      "benchmark": "BTC",
-      "fee_assumption": "0.1% per trade"
-    }
-  },
-  {
-    "spec_id": "AAE-20260608-2158-ACC",
-    "generated_at": "2026-06-08T21:58:59.860688",
-    "engine": "Attention Arbitrage Engine v1.0",
-    "narrative": "Nomad Capital",
-    "lifecycle_stage": "ACCELERATION",
-    "confidence": 0.7,
-    "opportunity_score": 60,
-    "risk_level": "MEDIUM",
-    "ai_reasoning": "The narrative is classified as ACCELERATION due to the moderate velocity score, significant volume change in the last 24 hours, and the 'Early Acceleration' stage hint. Although the global regime is BTC_DOMINANCE, which may pose a headwind for altcoin narratives, the adjusted signal indicates early momentum building, suggesting the narrative is gaining traction.",
-    "market_context": {
-      "regime": "BTC_DOMINANCE",
-      "btc_dominance": 58.2,
-      "regime_note": "Capital concentrated in BTC \u2014 altcoin narratives face headwind"
-    },
-    "signal_data": {
-      "velocity_score": 54.55,
-      "volume_change_24h": 70.6529,
-      "avg_price_change_24h": -1.6881,
-      "divergence_signal": "MODERATE \u2014 early momentum building"
-    },
-    "strategy": {
-      "type": "Momentum Ride",
-      "thesis": "Narrative is confirmed and gaining mainstream traction. Ride the momentum with tight risk management.",
-      "entry_rule": "Enter when velocity_score 35-60 AND both volume AND price trending up AND global_regime != BTC_DOMINANCE",
-      "entry_trigger": "Buy on pullback to 10-day moving average or volume confirmation",
-      "position_size": "3-5% of portfolio per narrative (medium risk, confirmed trend)",
-      "position_size_adjustment": "Standard position sizing applies",
-      "exit_rule_profit": "Exit 33% at +25%, 33% at +50%, trail stop on final 33%",
-      "exit_rule_time": "Exit if volume_change_24h drops below 10% for 3 consecutive days",
-      "stop_loss": "-10% from entry price",
-      "time_horizon": "5-14 days",
-      "max_drawdown_tolerance": "10%",
-      "notes": "Reduce position size by 50% if BTC_DOMINANCE regime detected"
-    },
-    "backtestable_assets": [
-      "SAHARA",
-      "BARD",
-      "BB"
-    ],
-    "backtest_parameters": {
-      "lookback_window": "30 days",
-      "entry_on": "daily open",
-      "benchmark": "BTC",
-      "fee_assumption": "0.1% per trade"
-    }
-  },
-  {
-    "spec_id": "AAE-20260608-2158-ACC",
-    "generated_at": "2026-06-08T21:58:59.860688",
+    "spec_id": "AAE-20260610-0223-EAR",
+    "generated_at": "2026-06-10T02:23:15.547678",
     "engine": "Attention Arbitrage Engine v1.0",
     "narrative": "Intent",
-    "lifecycle_stage": "ACCELERATION",
-    "confidence": 0.7,
+    "lifecycle_stage": "EARLY_ACCELERATION",
+    "confidence": 0.8,
     "opportunity_score": 60,
     "risk_level": "MEDIUM",
-    "ai_reasoning": "The narrative is classified as ACCELERATION due to the significant increase in volume and price over the past 24 hours, with a volume change of 48.3293% and an average price change of 15.9463%. Although the global regime is BTC_DOMINANCE, which may pose a headwind for altcoin narratives, the velocity score and adjusted signal suggest that the narrative is still gaining momentum.",
+    "ai_reasoning": [
+      "Velocity score of 70.05 indicates strong momentum",
+      "Volume change of 75.0952% in 24 hours suggests rapid growth",
+      "Average change of 18.9683% in 24 hours across tokens indicates broad-based growth"
+    ],
     "market_context": {
       "regime": "BTC_DOMINANCE",
-      "btc_dominance": 58.2,
+      "btc_dominance": 58.04,
       "regime_note": "Capital concentrated in BTC \u2014 altcoin narratives face headwind"
     },
     "signal_data": {
-      "velocity_score": 47.4,
-      "volume_change_24h": 48.3293,
-      "avg_price_change_24h": 15.9463,
-      "divergence_signal": "WEAK \u2014 some divergence but limited edge"
+      "velocity_score": 70.05,
+      "volume_change_24h": 75.0952,
+      "avg_price_change_24h": 18.9683,
+      "divergence_signal": "MODERATE \u2014 early momentum building"
     },
     "strategy": {
       "type": "Momentum Ride",
@@ -188,44 +51,201 @@
     }
   },
   {
-    "spec_id": "AAE-20260608-2158-ACC",
-    "generated_at": "2026-06-08T21:58:59.860688",
+    "spec_id": "AAE-20260610-0223-EME",
+    "generated_at": "2026-06-10T02:23:15.547678",
     "engine": "Attention Arbitrage Engine v1.0",
-    "narrative": "Yield Aggregator",
-    "lifecycle_stage": "ACCELERATION",
-    "confidence": 0.8,
+    "narrative": "Nomad Capital",
+    "lifecycle_stage": "EMERGENCE",
+    "confidence": 0.68,
     "opportunity_score": 60,
-    "risk_level": "MEDIUM",
-    "ai_reasoning": "The narrative is experiencing a surge in volume and price, with a 44.52% increase in volume and an 11.39% increase in price over the past 24 hours, indicating acceleration. However, the global regime is in BTC dominance, which may pose a headwind for altcoin narratives. The adjusted signal is weak, but the velocity score and volume trend of the tokens suggest continued growth.",
+    "risk_level": "HIGH",
+    "ai_reasoning": [
+      "Velocity score of 70 indicates high activity and potential for growth",
+      "Volume change of 274.6767% in 24 hours suggests strong interest and momentum",
+      "Accelerating volume trends for all three tokens (SAHARA, BARD, BB) indicate increasing attention and participation"
+    ],
     "market_context": {
       "regime": "BTC_DOMINANCE",
-      "btc_dominance": 58.2,
+      "btc_dominance": 58.04,
       "regime_note": "Capital concentrated in BTC \u2014 altcoin narratives face headwind"
     },
     "signal_data": {
-      "velocity_score": 37.64,
-      "volume_change_24h": 44.5226,
-      "avg_price_change_24h": 11.3894,
-      "divergence_signal": "WEAK \u2014 some divergence but limited edge"
+      "velocity_score": 70,
+      "volume_change_24h": 274.6767,
+      "avg_price_change_24h": -45.3075,
+      "divergence_signal": "MODERATE CONVICTION \u2014 strong divergence but BTC dominance headwind"
     },
     "strategy": {
-      "type": "Momentum Ride",
-      "thesis": "Narrative is confirmed and gaining mainstream traction. Ride the momentum with tight risk management.",
-      "entry_rule": "Enter when velocity_score 35-60 AND both volume AND price trending up AND global_regime != BTC_DOMINANCE",
-      "entry_trigger": "Buy on pullback to 10-day moving average or volume confirmation",
-      "position_size": "3-5% of portfolio per narrative (medium risk, confirmed trend)",
-      "position_size_adjustment": "Standard position sizing applies",
-      "exit_rule_profit": "Exit 33% at +25%, 33% at +50%, trail stop on final 33%",
-      "exit_rule_time": "Exit if volume_change_24h drops below 10% for 3 consecutive days",
-      "stop_loss": "-10% from entry price",
-      "time_horizon": "5-14 days",
-      "max_drawdown_tolerance": "10%",
-      "notes": "Reduce position size by 50% if BTC_DOMINANCE regime detected"
+      "type": "Early Position Accumulation",
+      "thesis": "Narrative attention is accelerating faster than price. Accumulate before mainstream discovery.",
+      "entry_rule": "Enter when velocity_score > 60 AND volume_change_24h > 100% AND avg_price_change_24h < 15%",
+      "entry_trigger": "Buy on next daily open after signal confirmation",
+      "position_size": "2-4% of portfolio per narrative (high risk, early stage)",
+      "position_size_adjustment": "REDUCE position size by 30% due to BTC dominance headwind",
+      "exit_rule_profit": "Exit 50% position at +40% price gain, trail stop on remainder",
+      "exit_rule_time": "Exit full position if velocity_score drops below 40 within 14 days",
+      "stop_loss": "-15% from entry price",
+      "time_horizon": "7-21 days",
+      "max_drawdown_tolerance": "15%",
+      "notes": "Split entry into 3 tranches over 48 hours to reduce timing risk"
     },
     "backtestable_assets": [
-      "CVX",
-      "YFI",
-      "YB"
+      "SAHARA",
+      "BARD",
+      "BB"
+    ],
+    "backtest_parameters": {
+      "lookback_window": "30 days",
+      "entry_on": "daily open",
+      "benchmark": "BTC",
+      "fee_assumption": "0.1% per trade"
+    }
+  },
+  {
+    "spec_id": "AAE-20260610-0223-EME",
+    "generated_at": "2026-06-10T02:23:15.547678",
+    "engine": "Attention Arbitrage Engine v1.0",
+    "narrative": "Immutable zkEVM Ecosystem",
+    "lifecycle_stage": "EMERGENCE",
+    "confidence": 0.68,
+    "opportunity_score": 60,
+    "risk_level": "HIGH",
+    "ai_reasoning": [
+      "Velocity score of 70 indicates a high level of activity and interest in the narrative",
+      "Volume change of 198.9147% in 24 hours suggests a surge in trading activity",
+      "Stage hint of 'Emergence' and adjusted signal of 'MODERATE CONVICTION' indicate early-stage growth"
+    ],
+    "market_context": {
+      "regime": "BTC_DOMINANCE",
+      "btc_dominance": 58.04,
+      "regime_note": "Capital concentrated in BTC \u2014 altcoin narratives face headwind"
+    },
+    "signal_data": {
+      "velocity_score": 70,
+      "volume_change_24h": 198.9147,
+      "avg_price_change_24h": -0.0361,
+      "divergence_signal": "MODERATE CONVICTION \u2014 strong divergence but BTC dominance headwind"
+    },
+    "strategy": {
+      "type": "Early Position Accumulation",
+      "thesis": "Narrative attention is accelerating faster than price. Accumulate before mainstream discovery.",
+      "entry_rule": "Enter when velocity_score > 60 AND volume_change_24h > 100% AND avg_price_change_24h < 15%",
+      "entry_trigger": "Buy on next daily open after signal confirmation",
+      "position_size": "2-4% of portfolio per narrative (high risk, early stage)",
+      "position_size_adjustment": "REDUCE position size by 30% due to BTC dominance headwind",
+      "exit_rule_profit": "Exit 50% position at +40% price gain, trail stop on remainder",
+      "exit_rule_time": "Exit full position if velocity_score drops below 40 within 14 days",
+      "stop_loss": "-15% from entry price",
+      "time_horizon": "7-21 days",
+      "max_drawdown_tolerance": "15%",
+      "notes": "Split entry into 3 tranches over 48 hours to reduce timing risk"
+    },
+    "backtestable_assets": [
+      "AUSD",
+      "GODS",
+      "OIK"
+    ],
+    "backtest_parameters": {
+      "lookback_window": "30 days",
+      "entry_on": "daily open",
+      "benchmark": "BTC",
+      "fee_assumption": "0.1% per trade"
+    }
+  },
+  {
+    "spec_id": "AAE-20260610-0223-EME",
+    "generated_at": "2026-06-10T02:23:15.547678",
+    "engine": "Attention Arbitrage Engine v1.0",
+    "narrative": "LaunchZone",
+    "lifecycle_stage": "EMERGENCE",
+    "confidence": 0.68,
+    "opportunity_score": 6,
+    "risk_level": "HIGH",
+    "ai_reasoning": [
+      "Volume surging with a 148.23% change in the last 24 hours, indicating high interest and potential for growth",
+      "The average change in the last 24 hours is 5.18%, which is a moderate increase, suggesting that the narrative is gaining traction",
+      "The presence of a strong divergence in the adjusted signal, despite the BTC dominance headwind, indicates a high potential for the narrative to continue growing"
+    ],
+    "market_context": {
+      "regime": "BTC_DOMINANCE",
+      "btc_dominance": 58.04,
+      "regime_note": "Capital concentrated in BTC \u2014 altcoin narratives face headwind"
+    },
+    "signal_data": {
+      "velocity_score": 77.13,
+      "volume_change_24h": 148.2303,
+      "avg_price_change_24h": 5.1778,
+      "divergence_signal": "MODERATE CONVICTION \u2014 strong divergence but BTC dominance headwind"
+    },
+    "strategy": {
+      "type": "Early Position Accumulation",
+      "thesis": "Narrative attention is accelerating faster than price. Accumulate before mainstream discovery.",
+      "entry_rule": "Enter when velocity_score > 60 AND volume_change_24h > 100% AND avg_price_change_24h < 15%",
+      "entry_trigger": "Buy on next daily open after signal confirmation",
+      "position_size": "2-4% of portfolio per narrative (high risk, early stage)",
+      "position_size_adjustment": "REDUCE position size by 30% due to BTC dominance headwind",
+      "exit_rule_profit": "Exit 50% position at +40% price gain, trail stop on remainder",
+      "exit_rule_time": "Exit full position if velocity_score drops below 40 within 14 days",
+      "stop_loss": "-15% from entry price",
+      "time_horizon": "7-21 days",
+      "max_drawdown_tolerance": "15%",
+      "notes": "Split entry into 3 tranches over 48 hours to reduce timing risk"
+    },
+    "backtestable_assets": [
+      "ZUKI",
+      "LZ",
+      "BCOIN"
+    ],
+    "backtest_parameters": {
+      "lookback_window": "30 days",
+      "entry_on": "daily open",
+      "benchmark": "BTC",
+      "fee_assumption": "0.1% per trade"
+    }
+  },
+  {
+    "spec_id": "AAE-20260610-0223-EME",
+    "generated_at": "2026-06-10T02:23:15.547678",
+    "engine": "Attention Arbitrage Engine v1.0",
+    "narrative": "Animal Racing",
+    "lifecycle_stage": "EMERGENCE",
+    "confidence": 0.68,
+    "opportunity_score": 6,
+    "risk_level": "HIGH",
+    "ai_reasoning": [
+      "Volume change in the last 24 hours is 609.8843, indicating a surge in interest",
+      "The velocity score of 74.13 suggests a rapid increase in narrative attention",
+      "The stage hint provided is 'Emergence', which aligns with the observed data"
+    ],
+    "market_context": {
+      "regime": "BTC_DOMINANCE",
+      "btc_dominance": 58.04,
+      "regime_note": "Capital concentrated in BTC \u2014 altcoin narratives face headwind"
+    },
+    "signal_data": {
+      "velocity_score": 74.13,
+      "volume_change_24h": 609.8843,
+      "avg_price_change_24h": 2.7515,
+      "divergence_signal": "MODERATE CONVICTION \u2014 strong divergence but BTC dominance headwind"
+    },
+    "strategy": {
+      "type": "Early Position Accumulation",
+      "thesis": "Narrative attention is accelerating faster than price. Accumulate before mainstream discovery.",
+      "entry_rule": "Enter when velocity_score > 60 AND volume_change_24h > 100% AND avg_price_change_24h < 15%",
+      "entry_trigger": "Buy on next daily open after signal confirmation",
+      "position_size": "2-4% of portfolio per narrative (high risk, early stage)",
+      "position_size_adjustment": "REDUCE position size by 30% due to BTC dominance headwind",
+      "exit_rule_profit": "Exit 50% position at +40% price gain, trail stop on remainder",
+      "exit_rule_time": "Exit full position if velocity_score drops below 40 within 14 days",
+      "stop_loss": "-15% from entry price",
+      "time_horizon": "7-21 days",
+      "max_drawdown_tolerance": "15%",
+      "notes": "Split entry into 3 tranches over 48 hours to reduce timing risk"
+    },
+    "backtestable_assets": [
+      "ZERC",
+      "DOGA",
+      "ZED"
     ],
     "backtest_parameters": {
       "lookback_window": "30 days",
