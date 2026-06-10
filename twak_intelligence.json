@@ -1,78 +1,308 @@
 {
   "integration": "Trust Wallet Agent Kit",
   "twak_version": "0.18.0",
-  "generated_at": "2026-06-09T22:15:59.705322",
+  "generated_at": "2026-06-10T02:04:53.773579",
+  "capabilities_used": [
+    "price \u2014 live token prices",
+    "trending \u2014 global and BNB-native",
+    "wallet sign-message \u2014 self-custody spec signing",
+    "x402 quote \u2014 payment preview"
+  ],
   "live_prices": {
     "BNB": {
       "symbol": "BNB",
-      "price_usd": 596.106991,
+      "price_usd": 593.083881,
       "chain": "bsc",
       "source": "Trust Wallet Agent Kit"
     },
     "ETH": {
       "symbol": "ETH",
-      "price_usd": 1659.161514,
+      "price_usd": 1644.857132,
       "chain": "ethereum",
       "source": "Trust Wallet Agent Kit"
     },
     "BTC": {
       "symbol": "BTC",
-      "price_usd": 62089.254712,
+      "price_usd": 61857.086498,
       "chain": "bitcoin",
       "source": "Trust Wallet Agent Kit"
     }
   },
-  "trending_tokens": [
+  "trending_global": [
     {
+      "assetId": "c501_tjv8814fCo9imokxVMZPXyYfq9ZoZQpegier9aTNmGBj",
+      "name": "SpaceX COIN",
       "symbol": "SPCX",
-      "price": "$56.7699",
-      "change_24h": "+226578.90%"
+      "chain": "solana",
+      "logoUrl": "https://bin.bnbstatic.com/images/web3-data/public/token/logos/D44228CD92FD29CF470328C105B1484D.jpg",
+      "priceUsd": 64.31476257565716,
+      "priceChange24h": 257388.42,
+      "marketCapUsd": 64314762575.516945,
+      "volume24hUsd": 40112560.58988236
     },
     {
+      "assetId": "c20000714_t0x8b194370825E37b33373e74A41009161808C1488",
+      "name": "Velvet",
       "symbol": "VELVET",
-      "price": "$0.4000",
-      "change_24h": "+27.66%"
+      "chain": "bsc",
+      "logoUrl": "https://s2.coinmarketcap.com/static/img/coins/200x200/37298.png",
+      "priceUsd": 0.39435413361481575,
+      "priceChange24h": 27.12459286,
+      "marketCapUsd": 165761655.58083212,
+      "volume24hUsd": 54009618.62384466
     },
     {
+      "assetId": "c8453_t0xc0634090F2Fe6c6d75e61Be2b949464aBB498973",
+      "name": "Keeta",
+      "symbol": "KTA",
+      "chain": "base",
+      "logoUrl": "https://s2.coinmarketcap.com/static/img/coins/200x200/36066.png",
+      "priceUsd": 0.1812012972409766,
+      "priceChange24h": 14.92166328,
+      "marketCapUsd": 99755597.83432779,
+      "volume24hUsd": 9802818.11917696
+    },
+    {
+      "assetId": "c501_t8x5VqbHA8D7NkD52uNuS5nnt3PwA8pLD34ymskeSo2Wn",
+      "name": "Zerebro",
       "symbol": "ZEREBRO",
-      "price": "$0.0280",
-      "change_24h": "+10.49%"
+      "chain": "solana",
+      "logoUrl": "https://assets-cdn.trustwallet.com/blockchains/solana/assets/8x5VqbHA8D7NkD52uNuS5nnt3PwA8pLD34ymskeSo2Wn/logo.png",
+      "priceUsd": 0.028001771461780293,
+      "priceChange24h": 14.47439559,
+      "marketCapUsd": 28000325.6088099,
+      "volume24hUsd": 16458877.18841066
     },
     {
-      "symbol": "LIT",
-      "price": "$1.6485",
-      "change_24h": "+9.64%"
-    },
-    {
-      "symbol": "IDOL",
-      "price": "$0.0299",
-      "change_24h": "+8.50%"
-    },
-    {
-      "symbol": "AGT",
-      "price": "$0.0164",
-      "change_24h": "+3.05%"
-    },
-    {
+      "assetId": "c501_t9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump",
+      "name": "Fartcoin",
       "symbol": "Fartcoin",
-      "price": "$0.1204",
-      "change_24h": "+1.07%"
+      "chain": "solana",
+      "logoUrl": "https://assets-cdn.trustwallet.com/blockchains/solana/assets/9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump/logo.png",
+      "priceUsd": 0.11832051459767548,
+      "priceChange24h": 3.61370236,
+      "marketCapUsd": 118320308.24669802,
+      "volume24hUsd": 17255897.41222196
     },
     {
-      "symbol": "WOD",
-      "price": "$0.0130",
-      "change_24h": "+0.63%"
+      "assetId": "c20000714_t0x5dBde81fcE337FF4bcaaEe4Ca3466C00aeCaE274",
+      "name": "Alaya Governance Token",
+      "symbol": "AGT",
+      "chain": "bsc",
+      "logoUrl": "https://s2.coinmarketcap.com/static/img/coins/200x200/36195.png",
+      "priceUsd": 0.016352186584199256,
+      "priceChange24h": 2.26288434,
+      "marketCapUsd": 37702037.337824136,
+      "volume24hUsd": 19664275.48762451
     },
     {
+      "assetId": "c20000714_t0x444045B0EE1ee319A660a5E3d604CA0ffA35ACaA",
+      "name": "Bitway Token",
       "symbol": "BTW",
-      "price": "$0.0781",
-      "change_24h": "+0.29%"
+      "chain": "bsc",
+      "logoUrl": "https://s2.coinmarketcap.com/static/img/coins/64x64/39158.png",
+      "priceUsd": 0.09874327076406696,
+      "priceChange24h": 0.653,
+      "marketCapUsd": 987432707.6406696,
+      "volume24hUsd": 7072432.338233388
     },
     {
+      "assetId": "c8453_t0x853a7c99227499DbA9dB8C3A02aA691aFDeBf841",
+      "name": "PlaysOut",
       "symbol": "PLAY",
-      "price": "$0.1070",
-      "change_24h": "+0.26%"
+      "chain": "base",
+      "logoUrl": "https://s2.coinmarketcap.com/static/img/coins/200x200/37534.png",
+      "priceUsd": 0.10543919228476607,
+      "priceChange24h": 0.3081,
+      "marketCapUsd": 527195961.42383033,
+      "volume24hUsd": 7024804.115643645
+    },
+    {
+      "assetId": "c20000714_t0xb994882a1b9bd98A71Dd6ea5F61577c42848B0E8",
+      "name": "World of Dypians",
+      "symbol": "WOD",
+      "chain": "bsc",
+      "logoUrl": "https://assets-cdn.trustwallet.com/blockchains/smartchain/assets/0xb994882a1b9bd98A71Dd6ea5F61577c42848B0E8/logo.png",
+      "priceUsd": 0.011245921335773311,
+      "priceChange24h": 0.3079,
+      "marketCapUsd": 11245921.33577331,
+      "volume24hUsd": 5409105.321385114
+    },
+    {
+      "assetId": "c20000714_t0xcf3232B85b43BCa90E51D38cc06Cc8bB8C8A3E36",
+      "name": "Audiera",
+      "symbol": "BEAT",
+      "chain": "bsc",
+      "logoUrl": "https://s2.coinmarketcap.com/static/img/coins/200x200/38837.png",
+      "priceUsd": 4.732608355421265,
+      "priceChange24h": 0.1364,
+      "marketCapUsd": 4732608355.421265,
+      "volume24hUsd": 16002260.277740814
     }
   ],
-  "cross_validation": "CMC narrative tokens verified against Trust Wallet infrastructure"
+  "trending_bnb": [
+    {
+      "assetId": "c20000714_t0x8b194370825E37b33373e74A41009161808C1488",
+      "name": "Velvet",
+      "symbol": "VELVET",
+      "chain": "bsc",
+      "logoUrl": "https://s2.coinmarketcap.com/static/img/coins/200x200/37298.png",
+      "priceUsd": 0.39435413361481575,
+      "priceChange24h": 27.12459286,
+      "marketCapUsd": 165761655.58083212,
+      "volume24hUsd": 54009618.62384466
+    },
+    {
+      "assetId": "c20000714_t0x4BfAa776991E85e5f8b1255461cbbd216cFc714f",
+      "name": "Defi App",
+      "symbol": "HOME",
+      "chain": "bsc",
+      "logoUrl": "https://s2.coinmarketcap.com/static/img/coins/200x200/36133.png",
+      "priceUsd": 0.03196624743614309,
+      "priceChange24h": 11.00351085,
+      "marketCapUsd": 122590558.91792841,
+      "volume24hUsd": 97503511.72188906
+    },
+    {
+      "assetId": "c20000714_t0x59264f02D301281f3393e1385c0aEFd446Eb0F00",
+      "name": "Particle Network",
+      "symbol": "PARTI",
+      "chain": "bsc",
+      "logoUrl": "https://s2.coinmarketcap.com/static/img/coins/200x200/36102.png",
+      "priceUsd": 0.05625872187792269,
+      "priceChange24h": 6.09959742,
+      "marketCapUsd": 30320520.57537769,
+      "volume24hUsd": 27603264.16652048
+    },
+    {
+      "assetId": "c20000714_t0xA64455a4553C9034236734FadDAddbb64aCE4Cc7",
+      "name": "Santos FC Fan Token",
+      "symbol": "SANTOS",
+      "chain": "bsc",
+      "logoUrl": "https://assets-cdn.trustwallet.com/blockchains/smartchain/assets/0xA64455a4553C9034236734FadDAddbb64aCE4Cc7/logo.png",
+      "priceUsd": 0.6462254457435761,
+      "priceChange24h": 2.31397153,
+      "marketCapUsd": 10400904.388734162,
+      "volume24hUsd": 4610490.12978664
+    },
+    {
+      "assetId": "c20000714_t0xF39e4b21c84e737Df08e2C3b32541d856f508E48",
+      "name": "Yooldo",
+      "symbol": "ESPORTS",
+      "chain": "bsc",
+      "logoUrl": "https://s2.coinmarketcap.com/static/img/coins/200x200/37414.png",
+      "priceUsd": 0.07155313821197468,
+      "priceChange24h": 1.16023971,
+      "marketCapUsd": 42077649.99396561,
+      "volume24hUsd": 24475494.88830554
+    },
+    {
+      "assetId": "c20000714_t0xb994882a1b9bd98A71Dd6ea5F61577c42848B0E8",
+      "name": "World of Dypians",
+      "symbol": "WOD",
+      "chain": "bsc",
+      "logoUrl": "https://assets-cdn.trustwallet.com/blockchains/smartchain/assets/0xb994882a1b9bd98A71Dd6ea5F61577c42848B0E8/logo.png",
+      "priceUsd": 0.011245921335773311,
+      "priceChange24h": 0.3079,
+      "marketCapUsd": 11245921.33577331,
+      "volume24hUsd": 5409105.321385114
+    },
+    {
+      "assetId": "c20000714_t0xcf3232B85b43BCa90E51D38cc06Cc8bB8C8A3E36",
+      "name": "Audiera",
+      "symbol": "BEAT",
+      "chain": "bsc",
+      "logoUrl": "https://s2.coinmarketcap.com/static/img/coins/200x200/38837.png",
+      "priceUsd": 4.732608355421265,
+      "priceChange24h": 0.1364,
+      "marketCapUsd": 4732608355.421265,
+      "volume24hUsd": 16002260.277740814
+    },
+    {
+      "assetId": "c20000714_t0x4d41A5d412f4Ef44A35b9f53b06DB65edE249493",
+      "name": "QAIT",
+      "symbol": "QAIT",
+      "chain": "bsc",
+      "logoUrl": "https://s2.coinmarketcap.com/static/img/coins/200x200/40073.png",
+      "priceUsd": 0.023684058234497922,
+      "priceChange24h": 0.1217,
+      "marketCapUsd": 156314248.81767854,
+      "volume24hUsd": 8125528.168214474
+    },
+    {
+      "assetId": "c20000714_t0x1a5D7E4c3A7F940B240b7357a4bFED30D17f9497",
+      "name": "Holoworld AI",
+      "symbol": "HOLO",
+      "chain": "bsc",
+      "logoUrl": "https://s2.coinmarketcap.com/static/img/coins/200x200/38309.png",
+      "priceUsd": 0.0631355503577115,
+      "priceChange24h": 0.0444,
+      "marketCapUsd": 129301607.13259314,
+      "volume24hUsd": 67681.48742099431
+    },
+    {
+      "assetId": "c20000714_t0x3E5d4f8aee0D9B3082d5f6DA5D6e225D17ba9ea0",
+      "name": "UnifAI Network",
+      "symbol": "UAI",
+      "chain": "bsc",
+      "logoUrl": "https://s2.coinmarketcap.com/static/img/coins/200x200/38841.png",
+      "priceUsd": 0.29069224293514623,
+      "priceChange24h": 0.042,
+      "marketCapUsd": 290692242.9351462,
+      "volume24hUsd": 1340207.085480949
+    }
+  ],
+  "signed_strategy_specs": [
+    {
+      "spec_id": "AAE-20260609-2034-EME",
+      "narrative": "Nomad Capital",
+      "lifecycle_stage": "EMERGENCE",
+      "spec_hash": "fac94b70371fa4fe7ba3fc43d2a8c1c7530bf86dd224c2e5668bb3008efd5b70",
+      "message_signed": "AAE:fac94b70371fa4fe7ba3fc43d2a8c1c7",
+      "signature": "7063367fece51cc5dab113e6645f3780d44a905687e196e856967c46617d17011483ca0a847c10c3e084011c5ec8018c284421e650a261601dcc08ad86b996911c",
+      "signed_by": "0x28063194Fb2eCf43c98DB16e2EC9A97FbfE8C358",
+      "chain": "bsc",
+      "method": "twak wallet sign-message (ECDSA secp256k1)",
+      "custody": "self-custody \u2014 key never left local machine",
+      "signed_at": "2026-06-10T02:04:43.755326"
+    },
+    {
+      "spec_id": "AAE-20260609-2034-EME",
+      "narrative": "Immutable zkEVM Ecosystem",
+      "lifecycle_stage": "EMERGENCE",
+      "spec_hash": "f3e9cbf4d7226348915e97f20a87d2dd0d9cb19487491503d59550b3806d2f1a",
+      "message_signed": "AAE:f3e9cbf4d7226348915e97f20a87d2dd",
+      "signature": "1614bacb746db3f1ac719cbb3c511a54bd06bad0bc0c336e7117c2a242a17c3f027826a7e381e929f3dd02664ad210d5568f121e50bc4c7ce4dba3bc57de734a1c",
+      "signed_by": "0x28063194Fb2eCf43c98DB16e2EC9A97FbfE8C358",
+      "chain": "bsc",
+      "method": "twak wallet sign-message (ECDSA secp256k1)",
+      "custody": "self-custody \u2014 key never left local machine",
+      "signed_at": "2026-06-10T02:04:45.979582"
+    },
+    {
+      "spec_id": "AAE-20260609-2034-EAR",
+      "narrative": "Oxbull",
+      "lifecycle_stage": "EARLY_ACCELERATION",
+      "spec_hash": "7197616092a951ff5afb29dfccf3a464f4b941138e0050bd2f87e0d084b220c3",
+      "message_signed": "AAE:7197616092a951ff5afb29dfccf3a464",
+      "signature": "25212c963293c456a3c2fb8b93062a70072254bcf5e43cc82eeccaee68dbf7aa010e5e19dfaba4e62144af23f2c26092d5b4f7f288c2710af1027bcdd3fe18731c",
+      "signed_by": "0x28063194Fb2eCf43c98DB16e2EC9A97FbfE8C358",
+      "chain": "bsc",
+      "method": "twak wallet sign-message (ECDSA secp256k1)",
+      "custody": "self-custody \u2014 key never left local machine",
+      "signed_at": "2026-06-10T02:04:47.987522"
+    }
+  ],
+  "results": {
+    "price_BNB": "SUCCESS",
+    "price_ETH": "SUCCESS",
+    "price_BTC": "SUCCESS",
+    "trending_global": "SUCCESS",
+    "trending_bnb": "SUCCESS",
+    "sign_AAE-20260609-2034-EME": "SUCCESS",
+    "sign_AAE-20260609-2034-EAR": "SUCCESS",
+    "x402_quote": "FAILED: Primary: x402: 402 response failed schema validation \u00e2\u20ac\u201d accepts: Array must contain at least 1 element(s) | Fallback: Endpoint returned 405 Method Not Allowed; expected 402 challenge."
+  },
+  "successful_calls": 7,
+  "total_calls": 8
 }
