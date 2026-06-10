@@ -90,10 +90,17 @@ def verify_registration(sdk, agent_id):
     print(f"Verifying on-chain registration for Agent ID: {agent_id}...")
 
     agent_info = sdk.get_agent_info(agent_id=agent_id)
-
     print(f"  Name     : {agent_info.get('name', 'N/A')}")
     print(f"  Agent ID : {agent_info.get('token_id', 'N/A')}")
     print(f"  Owner    : {agent_info.get('owner', 'N/A')}")
+    print()
+
+    print("Querying full agent registry...")
+    all_agents = sdk.get_all_agents()
+    items = all_agents.get("items", [])
+    print(f"  Total registered agents: {len(items)}")
+    for agent in items[:5]:
+        print(f"  Agent #{agent.get('token_id')}: {agent.get('name', 'unnamed')} — {agent.get('owner', '')[:20]}...")
     print()
 
     return agent_info
