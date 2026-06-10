@@ -1,4 +1,16 @@
+# Environment
 .env
 venv/
 __pycache__/
 *.pyc
+
+# Runtime output files (regenerated on each run)
+aae_output_*.json
+backtest_results.json
+strategy_output.json
+bnb_enriched_specs.json
+twak_intelligence.json
+cmc_mcp_results.json
+x402_simulation.json
+
+# Keep bnb_registration.json — proof of on-chain registration
