@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Attention Arbitrage Engine — Narrative Intelligence Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#08080A;color:#fff;font-family:'Inter',sans-serif;min-height:100vh;padding:24px}
+.mono{font-family:'JetBrains Mono',monospace}
+.surface{background:#1A1A1C;border:0.5px solid #27272A;border-radius:16px;padding:20px}
+.surface-sm{background:#1A1A1C;border:0.5px solid #27272A;border-radius:12px;padding:14px}
+.metric-block{background:#111113;border-radius:10px;padding:10px 14px}
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:9999px;font-family:'JetBrains Mono',monospace;white-space:nowrap}
+.pill-teal{background:rgba(20,184,166,0.15);color:#14B8A6;border:0.5px solid rgba(20,184,166,0.3)}
+.pill-cyan{background:rgba(34,211,238,0.12);color:#22D3EE;border:0.5px solid rgba(34,211,238,0.25)}
+.pill-amber{background:rgba(245,158,11,0.12);color:#F59E0B;border:0.5px solid rgba(245,158,11,0.25)}
+.pill-red{background:rgba(239,68,68,0.12);color:#EF4444;border:0.5px solid rgba(239,68,68,0.25)}
+.pill-gray{background:rgba(113,113,122,0.15);color:#A1A1AA;border:0.5px solid #27272A}
+.pill-green{background:rgba(34,197,94,0.12);color:#22C55E;border:0.5px solid rgba(34,197,94,0.25)}
+.bar-bg{background:#27272A;border-radius:9999px;height:5px;overflow:hidden}
+.bar-fill{height:100%;border-radius:9999px;transition:width 1s ease}
+.label{font-size:10px;color:#71717A;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px}
+.divider{border:none;border-top:0.5px solid #27272A;margin:14px 0}
+.token-chip{display:inline-flex;align-items:center;gap:4px;background:#111113;border:0.5px solid #27272A;border-radius:6px;padding:3px 8px;font-family:'JetBrains Mono',monospace;font-size:11px}
+.reasoning-item{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:#A1A1AA;line-height:1.55;margin-bottom:6px}
+.dot{width:5px;height:5px;border-radius:50%;background:#14B8A6;flex-shrink:0;margin-top:5px}
+.status-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.status-dot.live{background:#22C55E;box-shadow:0 0 6px rgba(34,197,94,0.5)}
+.status-dot.warn{background:#F59E0B}
+.status-dot.off{background:#EF4444}
+.run-btn{background:#14B8A6;color:#000;font-family:'Inter',sans-serif;font-size:13px;font-weight:500;padding:9px 20px;border-radius:8px;border:none;cursor:pointer;display:flex;align-items:center;gap:6px;transition:background 0.2s}
+.run-btn:hover{background:#0d9488}
+.run-btn:disabled{background:#27272A;color:#71717A;cursor:not-allowed}
+.card-hover{transition:border-color 0.2s,transform 0.15s;cursor:default}
+.card-hover:hover{border-color:#14B8A6;transform:translateY(-2px)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.section-label{font-size:11px;font-weight:600;color:#71717A;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.07em;margin:18px 0 10px}
+.fade-in{opacity:0;animation:fadeUp 0.45s ease forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.spinner{width:24px;height:24px;border:2px solid #27272A;border-top-color:#14B8A6;border-radius:50%;animation:spin 0.8s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+.error-state{text-align:center;padding:60px 20px;color:#71717A}
+.ticker-sep{border-right:0.5px solid #27272A;height:20px}
+a{color:#14B8A6;text-decoration:none}
+a:hover{text-decoration:underline}
+@media(max-width:700px){.grid2,.grid3,.grid4{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div style="max-width:1100px;margin:0 auto">
+
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:12px">
+  <div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:5px">
+      <span style="font-size:20px;font-weight:500">Attention Arbitrage Engine</span>
+      <span class="pill pill-teal">v2.0</span>
+      <span class="pill pill-gray" id="conn-badge">connecting...</span>
+    </div>
+    <div style="font-size:12px;color:#71717A;font-family:'JetBrains Mono',monospace">
+      Narrative Intelligence Platform &nbsp;·&nbsp; BNB × CMC Hackathon Track 2
+      &nbsp;·&nbsp; <a href="https://github.com/phllp-tanstic/aae-skill" target="_blank">github.com/phllp-tanstic/aae-skill ↗</a>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+    <span style="font-size:11px;color:#71717A;font-family:'JetBrains Mono',monospace" id="last-updated"></span>
+    <button class="run-btn" id="run-btn" onclick="runPipeline()">
+      <i class="ti ti-refresh"></i><span id="run-label">Run Engine</span>
+    </button>
+  </div>
+</div>
+
+<div id="ticker" style="background:#111113;border:0.5px solid #27272A;border-radius:10px;display:flex;align-items:center;padding:8px 6px;margin-bottom:18px;overflow-x:auto;gap:0;min-height:36px">
+  <span style="color:#71717A;padding:0 14px;font-size:12px;font-family:'JetBrains Mono',monospace">Loading market data...</span>
+</div>
+
+<div id="main-content">
+  <div class="error-state">
+    <div class="spinner" style="margin:0 auto 16px"></div>
+    <div style="font-size:14px;color:#A1A1AA;margin-bottom:8px">Connecting to AAE server...</div>
+    <div style="font-size:12px;color:#71717A;font-family:'JetBrains Mono',monospace">localhost:8000 — make sure uvicorn is running</div>
+  </div>
+</div>
+
+<div style="text-align:center;padding:20px 0 8px;font-size:11px;color:#3F3F46;font-family:'JetBrains Mono',monospace">
+  Attention Arbitrage Engine v2.0 &nbsp;·&nbsp; BNB × CMC Hackathon Track 2
+  &nbsp;·&nbsp; Agent ID 1345 on BSC Testnet
+</div>
+
+</div>
+
+<script>
+const API='http://localhost:8000';
+let isRunning=false;
+const STAGE_EMOJI={EMERGENCE:'🟢',EARLY_ACCELERATION:'🟡',LATE_ACCELERATION:'🟠',SATURATION:'🔴',DECAY:'⚫'};
+const STAGE_PILL={EMERGENCE:'pill-teal',EARLY_ACCELERATION:'pill-cyan',LATE_ACCELERATION:'pill-amber',SATURATION:'pill-red',DECAY:'pill-gray'};
+
+function fmt(n,d=2){return n==null?'N/A':Number(n).toFixed(d)}
+function fmtPct(n){const v=Number(n);return(v>=0?'+':'')+fmt(v,2)+'%'}
+function fmtPrice(n){return n>999?'$'+Number(n).toLocaleString('en-US',{maximumFractionDigits:0}):'$'+fmt(n,2)}
+
+async function apiFetch(path,opts={}){
+  try{
+    const r=await fetch(API+path,{...opts,signal:AbortSignal.timeout(opts.timeout||8000)});
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    return await r.json();
+  }catch(e){return null;}
+}
+
+async function runPipeline(){
+  if(isRunning)return;
+  isRunning=true;
+  const btn=document.getElementById('run-btn');
+  const lbl=document.getElementById('run-label');
+  btn.disabled=true;lbl.textContent='Running pipeline...';
+  setBadge('amber','pipeline running');
+  const res=await apiFetch('/run',{method:'POST',timeout:130000});
+  if(res?.status==='success'){
+    lbl.textContent='Refreshing dashboard...';
+    await new Promise(r=>setTimeout(r,1000));
+    await loadAndRender();
+  }else{
+    setBadge('red','pipeline error');
+    alert('Pipeline error: '+(res?.message||'unknown error'));
+  }
+  btn.disabled=false;lbl.textContent='Run Engine';isRunning=false;
+}
+
+function setBadge(color,text){
+  const b=document.getElementById('conn-badge');
+  b.className='pill pill-'+color;b.textContent=text;
+}
+
+function renderTicker(data){
+  const tw=data.integrations?.twak||{};
+  const mc=data.market_context||{};
+  const items=[
+    {label:'BNB',val:tw.bnb_price?fmtPrice(tw.bnb_price):'—',color:'#14B8A6'},
+    {label:'ETH',val:tw.eth_price?fmtPrice(tw.eth_price):'—',color:'#A1A1AA'},
+    {label:'BTC',val:tw.btc_price?fmtPrice(tw.btc_price):'—',color:'#A1A1AA'},
+    {label:'BTC DOM',val:fmt(mc.btc_dominance,2)+'%',color:'#F59E0B'},
+    {label:'MKT CAP',val:mc.total_market_cap?'$'+Number(mc.total_market_cap/1e12).toFixed(2)+'T':'—',color:'#A1A1AA'},
+    {label:'REGIME',val:(mc.regime||'—').replace('_',' '),color:mc.regime==='BTC_DOMINANCE'?'#F59E0B':'#22C55E'},
+    {label:'TOP OPP',val:(data.strategy_specs?.[0]?.narrative||'—').toUpperCase(),color:'#22D3EE'},
+  ];
+  document.getElementById('ticker').innerHTML=items.map((it,i)=>
+    `<div style="display:flex;align-items:center;gap:6px;padding:0 14px;${i<items.length-1?'border-right:0.5px solid #27272A;':''};flex-shrink:0">
+      <span style="font-size:11px;color:#71717A;font-family:JetBrains Mono,monospace">${it.label}</span>
+      <span style="font-size:12px;font-weight:600;color:${it.color};font-family:JetBrains Mono,monospace">${it.val}</span>
+    </div>`
+  ).join('')+
+  `<div style="display:flex;align-items:center;gap:5px;padding:0 14px;flex-shrink:0;margin-left:auto">
+    <span class="status-dot live"></span>
+    <span style="font-size:11px;color:#22C55E;font-family:JetBrains Mono,monospace">LIVE</span>
+  </div>`;
+}
+
+function narrativeCard(spec,idx,compact=false){
+  const stage=spec.lifecycle_stage||'EMERGENCE';
+  const emoji=STAGE_EMOJI[stage]||'⚪';
+  const pc=STAGE_PILL[stage]||'pill-gray';
+  const sig=spec.signal_data||{};
+  const reasoning=typeof spec.ai_reasoning==='string'
+    ?spec.ai_reasoning.split('•').filter(Boolean)
+    :(Array.isArray(spec.ai_reasoning)?spec.ai_reasoning:[spec.ai_reasoning||'']);
+  const assets=spec.backtestable_assets||[];
+  const bnb=spec.bnb_execution_context||{};
+  const del=(idx*0.08)+'s';
+
+  if(compact){
+    return `<div class="surface card-hover fade-in" style="animation-delay:${del}">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <div style="display:flex;align-items:center;gap:7px">
+          <span style="font-size:15px">${emoji}</span>
+          <div>
+            <div style="font-weight:500;font-size:14px">${spec.narrative||'—'}</div>
+            <div style="font-size:10px;color:#71717A;font-family:JetBrains Mono,monospace">${spec.spec_id||''}</div>
+          </div>
+          <span class="pill ${pc}" style="font-size:10px">${stage.replace('_',' ')}</span>
+        </div>
+        <div style="text-align:right;flex-shrink:0">
+          <div style="font-size:18px;font-weight:500;color:#14B8A6">${spec.opportunity_score||0}</div>
+          <div style="font-size:10px;color:#71717A;font-family:JetBrains Mono,monospace">opp</div>
+        </div>
+      </div>
+      <div class="grid2" style="gap:7px;margin-bottom:10px">
+        <div class="metric-block" style="padding:8px 10px"><div class="label">Vol 24h</div><div style="font-size:13px;font-weight:500;color:#22D3EE">${fmtPct(sig.volume_change_24h)}</div></div>
+        <div class="metric-block" style="padding:8px 10px"><div class="label">Price Δ</div><div style="font-size:13px;font-weight:500;color:${Number(sig.avg_price_change_24h||0)>=0?'#22C55E':'#EF4444'}">${fmtPct(sig.avg_price_change_24h)}</div></div>
+      </div>
+      <div style="font-size:11px;color:#A1A1AA;margin-bottom:8px;line-height:1.4">${spec.historical_analog?.match||''} ${spec.historical_analog?.similarity_score?'· '+Math.round(spec.historical_analog.similarity_score*100)+'% match':''}</div>
+      <div style="display:flex;gap:4px;flex-wrap:wrap">
+        ${assets.map(a=>`<span class="token-chip">${a}</span>`).join('')}
+      </div>
+    </div>`;
+  }
+
+  return `<div class="surface card-hover fade-in" style="animation-delay:${del}">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px">
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <span style="font-size:16px">${emoji}</span>
+          <span style="font-weight:500;font-size:16px">${spec.narrative||'—'}</span>
+          <span class="pill ${pc}">${stage.replace('_',' ')}</span>
+        </div>
+        <div style="font-size:11px;color:#71717A;font-family:JetBrains Mono,monospace">${spec.spec_id||''}</div>
+      </div>
+      <div style="text-align:right;flex-shrink:0">
+        <div style="font-size:24px;font-weight:500;color:#22D3EE">${spec.opportunity_score||0}</div>
+        <div style="font-size:10px;color:#71717A;font-family:JetBrains Mono,monospace">opp / 100</div>
+      </div>
+    </div>
+    <div class="grid2" style="gap:8px;margin-bottom:12px">
+      <div>
+        <div class="label">Attention Score</div>
+        <div style="display:flex;align-items:center;gap:6px">
+          <div class="bar-bg" style="flex:1"><div class="bar-fill" style="width:${Math.min(100,sig.velocity_score||0)}%;background:#14B8A6"></div></div>
+          <span style="font-size:12px;color:#14B8A6;font-family:JetBrains Mono,monospace">${fmt(sig.velocity_score,1)}</span>
+        </div>
+      </div>
+      <div>
+        <div class="label">Confidence</div>
+        <div style="display:flex;align-items:center;gap:6px">
+          <div class="bar-bg" style="flex:1"><div class="bar-fill" style="width:${Math.round((spec.confidence||0)*100)}%;background:#22D3EE"></div></div>
+          <span style="font-size:12px;color:#22D3EE;font-family:JetBrains Mono,monospace">${Math.round((spec.confidence||0)*100)}%</span>
+        </div>
+      </div>
+    </div>
+    <div class="grid4" style="gap:7px;margin-bottom:12px">
+      <div class="metric-block" style="padding:8px 10px"><div class="label">Vol 24h</div><div style="font-size:13px;font-weight:500;color:#22D3EE">${fmtPct(sig.volume_change_24h)}</div></div>
+      <div class="metric-block" style="padding:8px 10px"><div class="label">Price Δ</div><div style="font-size:13px;font-weight:500;color:${Number(sig.avg_price_change_24h||0)>=0?'#22C55E':'#EF4444'}">${fmtPct(sig.avg_price_change_24h)}</div></div>
+      <div class="metric-block" style="padding:8px 10px"><div class="label">Risk</div><div style="font-size:13px;font-weight:500;color:${spec.risk_level==='HIGH'?'#F59E0B':'#22C55E'}">${spec.risk_level||'—'}</div></div>
+      <div class="metric-block" style="padding:8px 10px"><div class="label">Half-Life</div><div style="font-size:13px;font-weight:500">${spec.estimated_half_life_days?'~'+spec.estimated_half_life_days+'d':'—'}</div></div>
+    </div>
+    <div class="divider"></div>
+    <div class="label" style="margin-bottom:6px">Historical Analog</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+      <span style="font-size:13px">${spec.historical_analog?.match||'—'}</span>
+      ${spec.historical_analog?.similarity_score?`<span class="pill pill-teal" style="font-size:10px">${Math.round(spec.historical_analog.similarity_score*100)}% match</span>`:''}
+    </div>
+    <div style="font-size:11px;color:#A1A1AA;line-height:1.4;margin-bottom:12px">${spec.historical_analog?.insight||''}</div>
+    <div class="divider"></div>
+    <div class="label" style="margin-bottom:7px">AI Reasoning</div>
+    ${reasoning.slice(0,3).map(r=>`<div class="reasoning-item"><div class="dot"></div><span>${r.trim().replace(/^•/,'')}</span></div>`).join('')}
+    <div class="divider"></div>
+    <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px">
+      ${assets.map(a=>`<span class="token-chip">${a}</span>`).join('')}
+    </div>
+    ${bnb.dex?`<div style="background:#111113;border-radius:8px;padding:8px 12px;font-size:11px;color:#A1A1AA;font-family:JetBrains Mono,monospace">${bnb.dex} · ${bnb.order_type||'LIMIT'} · Slippage ${bnb.slippage_tolerance||'1%'} · Agent <span style="color:#14B8A6">${bnb.agent_id||'1345'}</span></div>`:''}
+  </div>`;
+}
+
+function renderRotation(rot){
+  if(!rot)return'';
+  return`<div class="surface fade-in" style="animation-delay:0.3s;margin-bottom:18px">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+      <i class="ti ti-replace" style="font-size:16px;color:#14B8A6"></i>
+      <span style="font-weight:500;font-size:15px">Narrative Rotation Forecast</span>
+      <span class="pill pill-teal">${Math.round((rot.rotation_confidence||0)*100)}% confidence</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px">
+      <div class="metric-block" style="flex:1;min-width:140px">
+        <div class="label">Current Leader</div>
+        <div style="font-size:16px;font-weight:500;color:#22D3EE">${rot.current_leader||'—'}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex-shrink:0">
+        <div style="font-size:22px;color:#14B8A6">→</div>
+        <div style="font-size:10px;color:#71717A;font-family:JetBrains Mono,monospace">~${rot.estimated_rotation_days||0} days</div>
+      </div>
+      <div class="metric-block" style="flex:1;min-width:140px">
+        <div class="label">Rotation Target</div>
+        <div style="font-size:16px;font-weight:500;color:#14B8A6">${rot.rotation_target||'—'}</div>
+      </div>
+      <div class="metric-block" style="flex:1;min-width:160px">
+        <div class="label">Trigger</div>
+        <div style="font-size:12px;color:#A1A1AA;line-height:1.4">${rot.rotation_trigger||'—'}</div>
+      </div>
+      <div class="metric-block" style="flex:1;min-width:140px">
+        <div class="label">Watchlist</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:5px">
+          ${(rot.watchlist||[]).map(w=>`<span class="pill pill-gray">${w}</span>`).join('')}
+        </div>
+      </div>
+    </div>
+    <div style="font-size:12px;color:#A1A1AA;line-height:1.55;background:#111113;border-radius:8px;padding:10px 14px">${rot.reasoning||''}</div>
+  </div>`;
+}
+
+function renderSpecs(specs){
+  if(!specs?.length)return'<div style="color:#71717A;font-size:13px">No strategy specs available.</div>';
+  return specs.map((spec,i)=>{
+    const stage=spec.lifecycle_stage||'EMERGENCE';
+    const emoji=STAGE_EMOJI[stage]||'⚪';
+    const pc=STAGE_PILL[stage]||'pill-gray';
+    const strat=spec.strategy||{};
+    const del=(0.35+i*0.07)+'s';
+    return`<div class="surface card-hover fade-in" style="animation-delay:${del}${i===0?';border-color:rgba(34,211,238,0.4)':''}">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px">
+        <div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+            <span class="pill ${pc}" style="font-size:10px">SPEC #${i+1}</span>
+            <span class="pill ${pc}" style="font-size:10px">${stage.replace('_',' ')}</span>
+          </div>
+          <div style="font-weight:500;font-size:15px;margin-top:5px">${spec.narrative||'—'}</div>
+          <div style="font-size:10px;color:#71717A;font-family:JetBrains Mono,monospace">${spec.spec_id||''}</div>
+        </div>
+        <div style="text-align:right;flex-shrink:0">
+          <div style="font-size:22px;font-weight:500;color:${i===0?'#22D3EE':'#14B8A6'}">${spec.opportunity_score||0}</div>
+          <div style="font-size:10px;color:#71717A;font-family:JetBrains Mono,monospace">opp</div>
+        </div>
+      </div>
+      <div class="metric-block" style="margin-bottom:10px;padding:10px 12px">
+        <div class="label">Strategy</div>
+        <div style="font-size:13px;font-weight:500;color:#22D3EE">${strat.type||'—'}</div>
+        <div style="font-size:11px;color:#A1A1AA;margin-top:3px;line-height:1.4">${strat.thesis||''}</div>
+      </div>
+      <div class="grid4" style="gap:7px;margin-bottom:10px">
+        <div class="metric-block" style="padding:8px 10px"><div class="label">Entry</div><div style="font-size:11px;color:#fff;line-height:1.3">${strat.entry_trigger||'—'}</div></div>
+        <div class="metric-block" style="padding:8px 10px"><div class="label">Stop Loss</div><div style="font-size:14px;font-weight:500;color:#EF4444">${strat.stop_loss||'—'}</div></div>
+        <div class="metric-block" style="padding:8px 10px"><div class="label">Position</div><div style="font-size:13px;font-weight:500;color:#14B8A6">${strat.position_size||'—'}</div></div>
+        <div class="metric-block" style="padding:8px 10px"><div class="label">Horizon</div><div style="font-size:13px;font-weight:500">${strat.time_horizon||'—'}</div></div>
+      </div>
+      <div class="metric-block" style="margin-bottom:10px;padding:8px 12px">
+        <div class="label">Profit Exit</div>
+        <div style="font-size:11px;color:#A1A1AA">${strat.exit_rule_profit||'—'}</div>
+      </div>
+      <div style="display:flex;gap:5px;flex-wrap:wrap">
+        ${(spec.backtestable_assets||[]).map(a=>`<span class="token-chip">${a}</span>`).join('')}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderIntegrations(data){
+  const cmc=data.integrations?.cmc||{};
+  const bnb=data.integrations?.bnb||{};
+  const tw=data.integrations?.twak||{};
+  const tx=bnb.transaction_hash||'';
+  const txShort=tx?tx.slice(0,12)+'...'+tx.slice(-6):'—';
+  const wallet=tw.wallet_address||'';
+  const walletShort=wallet?wallet.slice(0,12)+'...'+wallet.slice(-4):'—';
+  const sig=tw.latest_signature||{};
+  return`<div class="grid3" style="margin-bottom:18px">
+    <div class="surface-sm fade-in" style="animation-delay:0.5s">
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:12px">
+        <span class="status-dot live"></span>
+        <span style="font-size:14px;font-weight:500">CMC Agent Hub</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:#71717A;font-family:JetBrains Mono,monospace">REST API</span><span style="color:#22C55E;font-family:JetBrains Mono,monospace">${cmc.endpoints_used||6} endpoints</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:#71717A;font-family:JetBrains Mono,monospace">MCP Tools</span><span style="color:#22C55E;font-family:JetBrains Mono,monospace">${cmc.mcp_successful||0}/${cmc.mcp_tools||0} calls</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:#71717A;font-family:JetBrains Mono,monospace">Skill Hub</span><span style="color:#22C55E;font-family:JetBrains Mono,monospace">connected</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:#71717A;font-family:JetBrains Mono,monospace">x402</span><span style="color:#F59E0B;font-family:JetBrains Mono,monospace">simulated</span></div>
+      </div>
+    </div>
+    <div class="surface-sm fade-in" style="animation-delay:0.55s">
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:12px">
+        <span class="status-dot live"></span>
+        <span style="font-size:14px;font-weight:500">BNB AI Agent SDK</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:#71717A;font-family:JetBrains Mono,monospace">Agent ID</span><span style="color:#14B8A6;font-family:JetBrains Mono,monospace;font-weight:600">${bnb.agent_id||'1345'}</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:#71717A;font-family:JetBrains Mono,monospace">Network</span><span style="color:#22C55E;font-family:JetBrains Mono,monospace">${bnb.network||'BSC Testnet'}</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:#71717A;font-family:JetBrains Mono,monospace">Standard</span><span style="color:#A1A1AA;font-family:JetBrains Mono,monospace">ERC-8004</span></div>
+        <div style="font-size:12px;color:#A1A1AA;font-family:JetBrains Mono,monospace;margin-top:4px"><a href="https://testnet.bscscan.com/tx/${tx}" target="_blank" style="color:#14B8A6">${txShort} ↗</a></div>
+      </div>
+    </div>
+    <div class="surface-sm fade-in" style="animation-delay:0.6s">
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:12px">
+        <span class="status-dot live"></span>
+        <span style="font-size:14px;font-weight:500">Trust Wallet TWAK</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:#71717A;font-family:JetBrains Mono,monospace">CLI version</span><span style="color:#22C55E;font-family:JetBrains Mono,monospace">v${tw.version||'0.18.0'}</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:#71717A;font-family:JetBrains Mono,monospace">Signed specs</span><span style="color:#14B8A6;font-family:JetBrains Mono,monospace">${tw.signed_specs||0}</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:#71717A;font-family:JetBrains Mono,monospace">Signing</span><span style="color:#22C55E;font-family:JetBrains Mono,monospace">ECDSA secp256k1</span></div>
+        <div style="font-size:11px;color:#71717A;font-family:JetBrains Mono,monospace;margin-top:4px;word-break:break-all">${walletShort}</div>
+      </div>
+    </div>
+  </div>
+  ${sig.spec_hash?`<div class="surface fade-in" style="animation-delay:0.65s;margin-bottom:18px;padding:14px 18px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px">
+      <div>
+        <div style="font-size:13px;font-weight:500;margin-bottom:2px">TWAK Signed Artifact</div>
+        <div style="font-size:11px;color:#71717A;font-family:JetBrains Mono,monospace">Self-custody · ECDSA secp256k1 · key never left local machine</div>
+      </div>
+      <span class="pill pill-teal">Verified</span>
+    </div>
+    <div class="divider" style="margin:10px 0"></div>
+    <div class="grid4" style="gap:8px">
+      <div><div class="label">Narrative</div><div style="font-size:12px;color:#fff">${sig.narrative||'—'}</div></div>
+      <div><div class="label">Spec Hash</div><div style="font-size:11px;color:#A1A1AA;font-family:JetBrains Mono,monospace">${(sig.spec_hash||'').slice(0,20)}...</div></div>
+      <div><div class="label">Signature</div><div style="font-size:11px;color:#A1A1AA;font-family:JetBrains Mono,monospace">${(sig.signature||'').slice(0,20)}...</div></div>
+      <div><div class="label">Signed By</div><div style="font-size:11px;color:#14B8A6;font-family:JetBrains Mono,monospace">${(sig.signed_by||'').slice(0,14)}...</div></div>
+    </div>
+  </div>`:''}`;
+}
+
+function renderAll(data){
+  const mc=data.market_context||{};
+  const specs=data.strategy_specs||[];
+  const rot=data.rotation_forecast||{};
+  const rc=mc.regime==='BTC_DOMINANCE'?'#F59E0B':mc.regime==='ALTCOIN_SEASON'?'#22C55E':'#A1A1AA';
+  const rp=mc.regime==='BTC_DOMINANCE'?'pill-amber':mc.regime==='ALTCOIN_SEASON'?'pill-green':'pill-gray';
+
+  let html=`<div class="grid4 fade-in" style="animation-delay:0.05s;margin-bottom:18px">
+    <div class="metric-block">
+      <div class="label">Market Regime</div>
+      <span class="pill ${rp}" style="margin-top:2px">${(mc.regime||'—').replace('_',' ')}</span>
+      <div style="font-size:10px;color:#71717A;font-family:JetBrains Mono,monospace;margin-top:6px">${mc.regime_note||''}</div>
+    </div>
+    <div class="metric-block">
+      <div class="label">BTC Dominance</div>
+      <div style="font-size:24px;font-weight:500;color:${rc}">${fmt(mc.btc_dominance,2)}%</div>
+    </div>
+    <div class="metric-block">
+      <div class="label">Narratives Analysed</div>
+      <div style="font-size:24px;font-weight:500;color:#14B8A6">${specs.length}</div>
+    </div>
+    <div class="metric-block">
+      <div class="label">Top Opportunity</div>
+      <div style="font-size:16px;font-weight:500;color:#22D3EE">${specs[0]?.narrative||'—'}</div>
+      <div style="font-size:10px;color:#71717A;font-family:JetBrains Mono,monospace;margin-top:3px">${(specs[0]?.lifecycle_stage||'').replace('_',' ')}</div>
+    </div>
+  </div>`;
+
+  html+=`<div class="section-label">Narrative Intelligence Dashboard</div>`;
+  html+=`<div class="grid2" style="margin-bottom:18px">`;
+  if(specs.length>0) html+=narrativeCard(specs[0],0,false);
+  html+=`<div style="display:flex;flex-direction:column;gap:12px">`;
+  for(let i=1;i<Math.min(specs.length,5);i++) html+=narrativeCard(specs[i],i,true);
+  html+=`</div></div>`;
+
+  html+=renderRotation(rot);
+
+  html+=`<div class="section-label">Strategy Specifications</div>`;
+  html+=`<div class="grid2" style="margin-bottom:18px">${renderSpecs(specs)}</div>`;
+
+  html+=`<div class="section-label">Integration Status</div>`;
+  html+=renderIntegrations(data);
+
+  return html;
+}
+
+async function loadAndRender(){
+  const data=await apiFetch('/dashboard');
+  const content=document.getElementById('main-content');
+  if(!data){
+    setBadge('red','server offline');
+    content.innerHTML=`<div class="error-state">
+      <i class="ti ti-wifi-off" style="font-size:40px;color:#71717A;display:block;margin:0 auto 16px"></i>
+      <div style="font-size:14px;color:#A1A1AA;margin-bottom:8px">Cannot connect to AAE server</div>
+      <div style="font-size:12px;color:#71717A;font-family:JetBrains Mono,monospace;margin-bottom:16px">Run: uvicorn api_server:app --reload --port 8000</div>
+      <button onclick="loadAndRender()" style="background:#1A1A1C;color:#14B8A6;border:0.5px solid #14B8A6;border-radius:8px;padding:8px 18px;font-size:13px;cursor:pointer;font-family:JetBrains Mono,monospace">Retry connection</button>
+    </div>`;
+    return;
+  }
+  setBadge('teal','live');
+  const ts=new Date(data.generated_at);
+  document.getElementById('last-updated').textContent='Last run: '+ts.toLocaleTimeString();
+  renderTicker(data);
+  content.innerHTML=renderAll(data);
+}
+
+loadAndRender();
+setInterval(async()=>{
+  if(!isRunning){
+    const ok=await apiFetch('/status');
+    if(!ok&&document.getElementById('conn-badge').textContent==='live') setBadge('red','server offline');
+  }
+},15000);
+</script>
+</body>
+</html>
