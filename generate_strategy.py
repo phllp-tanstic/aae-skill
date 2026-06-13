@@ -80,13 +80,16 @@ def generate_strategy_spec(classification_result, global_context):
     spec = {
         "spec_id": f"AAE-{datetime.now().strftime('%Y%m%d-%H%M')}-{stage[:3]}",
         "generated_at": datetime.now().isoformat(),
-        "engine": "Attention Arbitrage Engine v1.0",
+        "engine": "Attention Arbitrage Engine v2.0",
         "narrative": classification["narrative_name"],
         "lifecycle_stage": stage,
         "confidence": confidence_adjusted,
         "opportunity_score": classification["opportunity_score"],
         "risk_level": classification["risk_level"],
         "ai_reasoning": classification["reasoning"],
+        "estimated_half_life_days": classification.get("estimated_half_life_days"),
+        "attention_decay_probability": classification.get("attention_decay_probability"),
+        "historical_analog": classification.get("historical_analog", {}),
         "market_context": {
             "regime": global_context["regime"],
             "btc_dominance": global_context["btc_dominance"],

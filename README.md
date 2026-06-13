@@ -751,29 +751,14 @@ aae-skill/
 │                                  historical market data and performance metrics.
 │
 ├── integrations/
-│   │
-│   ├── bnb_agent_registration.py
-│   │                               Registers AAE as an ERC-8004 AI agent and manages
-│   │                               on-chain identity metadata.
-│   │
-│   ├── bnb_integration.py
-│   │                               Maps strategy outputs to BNB Chain execution
-│   │                               environments and trading infrastructure.
-│   │
-│   ├── trust_wallet_integration.py
-│   │                               Provides signing, verification, and strategy
-│   │                               provenance capabilities through Trust Wallet.
-│   │
-│   ├── cmc_mcp_integration.py
-│   │                               Connects to CoinMarketCap MCP services and Skill Hub
-│   │                               for agent-native data access and interoperability.
-│   │
-│   └── x402_simulation.py
-│                                   Demonstrates compatibility with x402 payment flows
-│                                   and programmable service access.
-│
-├── data/
-│   └── bnb_registration.json     ← Agent registration metadata and verification records
+├── bnb_agent_registration.py    ← BNB AI Agent SDK — ERC-8004 on-chain registration
+├── bnb_integration.py           ← PancakeSwap V3 execution context per strategy spec
+├── trust_wallet_integration.py  ← TWAK CLI — prices, trending, ECDSA spec signing
+├── cmc_mcp_integration.py       ← CMC Agent Hub MCP + Skill Hub integration
+├── x402_simulation.py           ← CMC x402 pay-per-call protocol flow
+├── api_server.py                ← FastAPI backend serving live pipeline data
+├── dashboard.html               ← Live web dashboard — connects to api_server
+├── bnb_registration.json        ← On-chain registration proof (Agent ID 1345)
 │
 └── README.md
 ```
@@ -897,7 +882,7 @@ source venv/bin/activate
 Install the required Python dependencies.
 
 ```bash
-pip install groq requests python-dotenv pandas yfinance mcp bnbagent web3 anthropic
+pip install groq requests python-dotenv pandas yfinance mcp bnbagent web3 anthropic fastapi uvicorn
 ```
 
 Install the Trust Wallet CLI.
@@ -1041,7 +1026,20 @@ Detects attention-versus-price dislocations.
 python classify_lifecycle.py
 ```
 
-Generates AI-driven narrative lifecycle classifications and reasoning.
+Run the live Dashboard
+```bash
+# Start the API server:
+uvicorn api_server:app --reload --port 8000
+```
+Open `dashboard.html` in your browser. The dashboard connects to the local server
+and displays live narrative intelligence, lifecycle classifications, rotation
+forecast, strategy specifications, backtest results, and integration status.
+
+Click **Run Engine** in the dashboard to trigger a full pipeline run and
+auto-refresh all data.
+
+The dashboard requires the uvicorn server to be running. Open a second terminal
+for running other commands while the server stays active in the first terminal.
 
 ---
 
