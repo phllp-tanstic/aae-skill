@@ -40,9 +40,9 @@ def print_dashboard(enriched, classification):
     emoji = STAGE_EMOJI.get(stage, "⚪")
     analog = c.get("historical_analog", {})
 
-    print(f"\n{'─'*65}")
+    print(f"\n{'-'*65}")
     print(f"  {emoji}  NARRATIVE: {c['narrative_name'].upper()}")
-    print(f"{'─'*65}")
+    print(f"{'-'*65}")
     print(f"  Lifecycle Stage      : {stage}")
     print(f"  Attention Score      : {e.get('velocity_score', 0)} / 100")
     print(f"  Relative Alpha       : +{e.get('relative_attention_alpha', 0)}% vs market")

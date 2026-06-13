@@ -127,7 +127,8 @@ async function runPipeline(){
     await loadAndRender();
   }else{
     setBadge('red','pipeline error');
-    alert('Pipeline error: '+(res?.message||'unknown error'));
+    setBadge('red','run failed — check server');
+    console.error('Pipeline error:', res?.message);
   }
   btn.disabled=false;lbl.textContent='Run Engine';isRunning=false;
 }
