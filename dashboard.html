@@ -236,7 +236,7 @@ function narrativeCard(spec,idx,compact=false){
       <div class="metric-block" style="padding:8px 10px"><div class="label">Vol 24h</div><div style="font-size:13px;font-weight:500;color:#22D3EE">${fmtPct(sig.volume_change_24h)}</div></div>
       <div class="metric-block" style="padding:8px 10px"><div class="label">Price Δ</div><div style="font-size:13px;font-weight:500;color:${Number(sig.avg_price_change_24h||0)>=0?'#22C55E':'#EF4444'}">${fmtPct(sig.avg_price_change_24h)}</div></div>
       <div class="metric-block" style="padding:8px 10px"><div class="label">Risk</div><div style="font-size:13px;font-weight:500;color:${spec.risk_level==='HIGH'?'#F59E0B':'#22C55E'}">${spec.risk_level||'—'}</div></div>
-      <div class="metric-block" style="padding:8px 10px"><div class="label">Half-Life</div><div style="font-size:13px;font-weight:500">${spec.estimated_half_life_days?'~'+spec.estimated_half_life_days+'d':'—'}</div></div>
+      <div class="metric-block" style="padding:8px 10px"><div class="label">Half-Life</div><div style="font-size:13px;font-weight:500">${(spec.estimated_half_life_days||spec.half_life_days)?'~'+(spec.estimated_half_life_days||spec.half_life_days)+'d':'—'}</div></div>
     </div>
     <div class="divider"></div>
     <div class="label" style="margin-bottom:6px">Historical Analog</div>

@@ -124,6 +124,9 @@ def dashboard():
             "spec_id": spec.get("spec_id"),
             "generated_at": spec.get("generated_at"),
             "bnb_execution_context": spec.get("bnb_execution_context", {}),
+            "estimated_half_life_days": spec.get("estimated_half_life_days"),
+            "attention_decay_probability": spec.get("attention_decay_probability"),
+            "historical_analog": spec.get("historical_analog", {}),
         })
 
     twak_prices = twak.get("live_prices", {})
