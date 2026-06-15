@@ -5,9 +5,8 @@ Uses the real TWAK CLI (v0.18.0) for:
 1. Live token price feeds across chains
 2. Trending token cross-validation (including BNB-native)
 3. Real wallet signing of strategy specs via self-custody key
-4. x402 quote against CMC endpoint
-
-All signing uses twak wallet sign-message — keys never leave the machine.
+4. PancakeSwap V3 signed swap intent builder (execution layer)
+5. x402 quote against CMC endpoint
 
 BNB x CMC Hackathon — Special Prize: Best Use of Trust Wallet Agent Kit
 """
@@ -105,8 +104,8 @@ def get_trending_tokens(category=None):
 def sign_strategy_spec(spec):
     """
     Sign a strategy spec using real TWAK self-custody wallet signing.
-    Uses twak wallet sign-message --chain bsc which signs with the
-    actual BSC private key — keys never leave the machine.
+    Uses twak wallet sign-message --chain bsc.
+    Keys never leave the machine.
     """
     signable = {
         "spec_id": spec.get("spec_id"),
@@ -149,20 +148,81 @@ def sign_strategy_spec(spec):
         return None, f"parse error: {output[:100]}"
 
 
+def build_signed_swap_intent(spec, wallet_address):
+    """
+    Build a complete PancakeSwap V3 swap intent signed by TWAK wallet.
+    The intent is built and signed but NOT submitted.
+    This elevates TWAK from signing utility to execution layer.
+    """
+    assets = spec.get("backtestable_assets", [])
+    stage = spec.get("lifecycle_stage", "EMERGENCE")
+    strategy = spec.get("strategy", {})
+
+    if not assets:
+        return None
+
+    primary_asset = assets[0]
+    position_size = "3%" if stage in ["EARLY_ACCELERATION", "ACCELERATION"] else "2%"
+
+    intent = {
+        "intent_type": "SWAP",
+        "protocol": "PancakeSwap V3",
+        "chain": "BNB Smart Chain",
+        "chain_id": 56,
+        "router": "0x13f4EA83D0bd40E75C8222255bc855a974568Dd4",
+        "from_token": "USDT",
+        "from_address": "0x55d398326f99059fF775485246999027B3197955",
+        "to_token": primary_asset,
+        "position_size_pct": position_size,
+        "slippage_tolerance": "1.5%",
+        "order_type": strategy.get("entry_trigger", "market"),
+        "stop_loss": strategy.get("stop_loss", "-15%"),
+        "narrative": spec.get("narrative"),
+        "lifecycle_stage": stage,
+        "spec_id": spec.get("spec_id"),
+        "generated_at": datetime.now().isoformat(),
+        "status": "INTENT_BUILT — awaiting user confirmation before execution",
+        "note": "Self-custody intent: signed by TWAK wallet, not auto-submitted",
+    }
+
+    intent_str = json.dumps(intent, sort_keys=True)
+    message = f"AAE-INTENT:{hashlib.sha256(intent_str.encode()).hexdigest()[:32]}"
+
+    output, error = run_twak([
+        "wallet", "sign-message",
+        "--chain", "bsc",
+        "--message", message,
+        "--json"
+    ])
+
+    if error or not output:
+        return None
+
+    try:
+        sig_result = json.loads(output)
+        return {
+            "swap_intent": intent,
+            "intent_hash": hashlib.sha256(intent_str.encode()).hexdigest(),
+            "signed_message": message,
+            "signature": sig_result.get("signature"),
+            "signed_by": sig_result.get("address"),
+            "chain": sig_result.get("chain"),
+            "custody": "self-custody via Trust Wallet Agent Kit",
+            "execution_status": "INTENT_SIGNED — submit via Trust Wallet to execute",
+        }
+    except Exception:
+        return None
+
+
 def x402_quote_via_twak(url):
-    """
-    Get x402 payment quote using TWAK's native x402 support.
-    Falls back to CMC x402 endpoint if primary fails.
-    """
+    """Get x402 payment quote using TWAK native x402 support."""
     output, error = run_twak(["x402", "quote", url], timeout=20)
     if output and "402" not in str(error or ""):
         return output, None
-
     fallback_url = "https://mcp.coinmarketcap.com/x402/mcp"
     output2, error2 = run_twak(["x402", "quote", fallback_url], timeout=20)
     if output2:
         return output2, None
-
     return None, f"Primary: {error} | Fallback: {error2}"
 
 
@@ -176,6 +236,7 @@ def run_trust_wallet_integration(specs):
     results = {}
     twak_prices = {}
     all_signed = []
+    signing_address = "0x28063194Fb2eCf43c98DB16e2EC9A97FbfE8C358"
 
     print("\n  ── Live Price Feed ────────────────────────────────────")
     for symbol in ["BNB", "ETH", "BTC"]:
@@ -225,19 +286,39 @@ def run_trust_wallet_integration(specs):
         signed, error = sign_strategy_spec(spec)
         if signed:
             all_signed.append(signed)
+            signing_address = signed.get("signed_by", signing_address)
             print(f"  ✅ Signed by  : {signed['signed_by']}")
             print(f"     Spec hash  : {signed['spec_hash'][:32]}...")
             print(f"     Signature  : {signed['signature'][:32]}...")
-            print(f"     Custody    : {signed['custody']}")
             results[f"sign_{spec.get('spec_id', 'spec')}"] = "SUCCESS"
         else:
             print(f"  ⚠️  {error}")
             results[f"sign_{spec.get('spec_id', 'spec')}"] = f"FAILED: {error}"
         print()
 
+    print("\n  ── Signed Swap Intents (Execution Layer) ──────────────")
+    print("  Method: TWAK builds + signs PancakeSwap V3 swap intents")
+    print("  Status: INTENT_BUILT — not auto-submitted (strategy spec, not bot)")
+    print()
+    swap_intents = []
+    for spec in specs[:2]:
+        intent = build_signed_swap_intent(spec, signing_address)
+        if intent:
+            swap_intents.append(intent)
+            si = intent["swap_intent"]
+            print(f"  ✅ Intent: {si['from_token']} → {si['to_token']}")
+            print(f"     Narrative : {si['narrative']} [{si['lifecycle_stage']}]")
+            print(f"     Size      : {si['position_size_pct']} of portfolio")
+            print(f"     Protocol  : {si['protocol']}")
+            print(f"     Signed by : {intent['signed_by']}")
+            print(f"     Signature : {intent['signature'][:32]}...")
+            results[f"intent_{si['to_token']}"] = "SUCCESS"
+        else:
+            results[f"intent_{spec.get('narrative','unknown')}"] = "FAILED"
+        print()
+
     print("\n  ── x402 Quote via TWAK ────────────────────────────────")
     x402_url = "https://pro-api.coinmarketcap.com/x402/v3/global-metrics/quotes/latest"
-    print(f"  twak x402 quote {x402_url}")
     quote_output, quote_error = x402_quote_via_twak(x402_url)
     if quote_output:
         print(f"  ✅ x402 quote received:")
@@ -260,12 +341,14 @@ def run_trust_wallet_integration(specs):
             "price — live token prices",
             "trending — global and BNB-native",
             "wallet sign-message — self-custody spec signing",
+            "build_signed_swap_intent — PancakeSwap V3 execution layer",
             "x402 quote — payment preview",
         ],
         "live_prices": twak_prices,
         "trending_global": trending_global[:10] if trending_global else [],
         "trending_bnb": trending_bnb[:10] if trending_bnb else [],
         "signed_strategy_specs": all_signed,
+        "swap_intents": swap_intents,
         "results": results,
         "successful_calls": successful,
         "total_calls": total,
@@ -277,6 +360,7 @@ def run_trust_wallet_integration(specs):
     print(f"\n  {'─'*61}")
     print(f"  TWAK calls successful : {successful} / {total}")
     print(f"  Signed specs          : {len(all_signed)}")
+    print(f"  Swap intents signed   : {len(swap_intents)}")
     print(f"  Output saved          : twak_intelligence.json")
     print("  Trust Wallet integration complete.")
 

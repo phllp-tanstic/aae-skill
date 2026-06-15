@@ -1178,6 +1178,8 @@ AAE is registered on BSC Testnet through the ERC-8004 agent registry as **Agent 
 | TWAK Signing Wallet      | `0x28063194Fb2eCf43c98DB16e2EC9A97FbfE8C358`                         |
 | Signing Chain            | BSC                                                                  |
 
+**Network Note:** The agent is registered on BSC Testnet for demonstration and evaluation purposes. Registration was completed using the standard ERC-8004 workflow through the BNB AI Agent SDK.
+
 ---
 
 ### **Roadmap**
