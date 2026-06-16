@@ -120,6 +120,13 @@ def generate_strategy_spec(classification_result, global_context):
     tokens = enriched.get("tokens", [])
     token_symbols = [t["symbol"] for t in tokens if t.get("symbol")]
 
+    # Low opportunity score override — don't generate BUY specs for weak signals
+    opportunity_score = classification["opportunity_score"]
+    if opportunity_score < 25 and stage in ("EMERGENCE", "EARLY_ACCELERATION"):
+        stage = "DECAY"
+        template = STRATEGY_TEMPLATES["DECAY"]
+        print(f"  NOTE: Opportunity score {opportunity_score}/100 below threshold — overriding to WATCH/EXIT spec")
+
     # Regime-adjusted confidence and position sizing
     if stage == "EMERGENCE" and global_context["regime"] == "BTC_DOMINANCE":
         confidence_adjusted = round(classification["confidence"] * 0.85, 2)

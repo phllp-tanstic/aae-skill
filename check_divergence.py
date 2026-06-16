@@ -54,24 +54,25 @@ def compute_divergence_signal(narrative_name, velocity_score, volume_change, pri
     """
     Classifies the divergence signal strength.
     High volume surge + low price = strong early signal.
+    Stage hints use normalized keys matching the classifier's lifecycle stages.
     """
     gap = volume_change - abs(price_change)
 
     if gap > 100 and velocity_score > 60:
         signal = "STRONG — price hasn't caught up to attention yet"
-        stage_hint = "Emergence"
+        stage_hint = "EMERGENCE"
     elif gap > 50 and velocity_score > 40:
         signal = "MODERATE — early momentum building"
-        stage_hint = "Early Acceleration"
+        stage_hint = "EARLY_ACCELERATION"
     elif gap > 20 and velocity_score > 25:
         signal = "WEAK — some divergence but limited edge"
-        stage_hint = "Acceleration"
+        stage_hint = "LATE_ACCELERATION"
     elif price_change > volume_change:
         signal = "NEGATIVE — price moved more than volume (late stage)"
-        stage_hint = "Saturation or Decay"
+        stage_hint = "SATURATION"
     else:
         signal = "NEUTRAL — no clear divergence"
-        stage_hint = "Unknown"
+        stage_hint = "DECAY"
 
     return signal, stage_hint
 

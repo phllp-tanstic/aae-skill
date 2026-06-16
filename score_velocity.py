@@ -11,20 +11,29 @@ BASE = "https://pro-api.coinmarketcap.com"
 
 
 def fetch_market_growth():
-    """Fetch total market volume change as baseline for relative alpha."""
-    url = f"{BASE}/v1/global-metrics/quotes/latest"
-    r = requests.get(url, headers=headers)
+    """
+    Fetch BTC 24h volume change as baseline for relative alpha.
+    CMC global metrics returns 0 for total_volume_24h_yesterday_percentage_change,
+    so we use BTC as the market proxy instead — it is always non-zero.
+    """
+    url = f"{BASE}/v1/cryptocurrency/quotes/latest"
+    params = {"symbol": "BTC"}
+    r = requests.get(url, headers=headers, params=params)
     data = r.json().get("data", {})
-    total_vol_change = data.get("quote", {}).get("USD", {}).get(
-        "total_volume_24h_yesterday_percentage_change", 0
-    )
-    return round(total_vol_change, 2)
+
+    btc_data = data.get("BTC", [])
+    if isinstance(btc_data, list):
+        btc_data = btc_data[0]
+
+    quote = btc_data.get("quote", {}).get("USD", {})
+    btc_vol_change = quote.get("volume_change_24h", 0) or 0
+
+    return round(btc_vol_change, 2)
 
 
 def score_velocity(narrative, market_volume_change=0):
     """
     Computes a velocity score 0-100 for a narrative.
-
     High score = attention growing faster than price.
 
     Components:
@@ -33,7 +42,7 @@ def score_velocity(narrative, market_volume_change=0):
     - Divergence bonus: volume >> price (30 points max)
 
     Also computes relative_attention_alpha:
-    How much faster this narrative is growing vs the overall market.
+    How much faster this narrative is growing vs BTC volume baseline.
     """
     vol_change = narrative["volume_change_24h"]
     mcap_change = narrative["market_cap_change_24h"]
@@ -51,6 +60,7 @@ def score_velocity(narrative, market_volume_change=0):
 
     total = round(vol_score + mcap_score + divergence_score, 2)
 
+    # Relative alpha: how much faster this narrative grows vs BTC volume baseline
     relative_attention_alpha = round(vol_change - market_volume_change, 2)
 
     return {
@@ -81,7 +91,7 @@ if __name__ == "__main__":
     print("Scoring narrative velocity...\n")
     scored = score_all_narratives(10)
 
-    print(f"Market baseline volume change: {scored[0]['market_volume_change']}%\n")
+    print(f"BTC baseline volume change: {scored[0]['market_volume_change']}%\n")
     print(f"{'Rank':<5} {'Narrative':<30} {'Score':<8} {'Vol':<8} {'Alpha':<10}")
     print("-" * 65)
 
