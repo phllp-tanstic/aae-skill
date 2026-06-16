@@ -15,7 +15,7 @@ CRYPTO_SYMBOL_MAP = {
     "ACX": None,
     "RIF": "RIF-USD",
     "IMX": "IMX-USD",
-    "MRVLX": "MRVL",
+    "MRVLX": None,
     "SAHARA": None,
     "BARD": None,
     "BB": None,
