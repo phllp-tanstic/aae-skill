@@ -29,8 +29,8 @@ def load_latest_output():
     """Load the most recent AAE output file."""
     output_files = glob.glob("aae_output_*.json")
     if output_files:
-        latest = max(output_files, key=os.path.getctime)
-        with open(latest, "r") as f:
+        latest = max(output_files, key=os.path.getmtime)
+        with open(latest, "r", encoding="utf-8") as f:
             return json.load(f), latest
     return None, None
 
@@ -38,7 +38,7 @@ def load_latest_output():
 def load_backtest_results():
     """Load backtest results if available."""
     if os.path.exists("backtest_results.json"):
-        with open("backtest_results.json", "r") as f:
+        with open("backtest_results.json", "r", encoding="utf-8") as f:
             return json.load(f)
     return {}
 
@@ -46,7 +46,7 @@ def load_backtest_results():
 def load_bnb_registration():
     """Load BNB on-chain registration."""
     if os.path.exists("bnb_registration.json"):
-        with open("bnb_registration.json", "r") as f:
+        with open("bnb_registration.json", "r", encoding="utf-8") as f:
             return json.load(f)
     return {}
 
@@ -54,7 +54,7 @@ def load_bnb_registration():
 def load_twak_intelligence():
     """Load TWAK price and signing data."""
     if os.path.exists("twak_intelligence.json"):
-        with open("twak_intelligence.json", "r") as f:
+        with open("twak_intelligence.json", "r", encoding="utf-8") as f:
             return json.load(f)
     return {}
 
@@ -62,7 +62,7 @@ def load_twak_intelligence():
 def load_mcp_results():
     """Load CMC MCP integration results."""
     if os.path.exists("cmc_mcp_results.json"):
-        with open("cmc_mcp_results.json", "r") as f:
+        with open("cmc_mcp_results.json", "r", encoding="utf-8") as f:
             return json.load(f)
     return {}
 
@@ -209,8 +209,8 @@ async def run_pipeline():
     env["PYTHONIOENCODING"] = "utf-8"
     env["PYTHONUTF8"] = "1"
 
-    print(f"  Using Python: {python_exe}")
-    print(f"  Running: {script_path}")
+    print(f"  Using Python : {python_exe}")
+    print(f"  Running      : {script_path}")
 
     def run_blocking():
         return _sp.run(
@@ -223,7 +223,10 @@ async def run_pipeline():
 
     try:
         loop = asyncio.get_event_loop()
-        result = await loop.run_in_executor(None, run_blocking)
+        result = await asyncio.wait_for(
+            loop.run_in_executor(None, run_blocking),
+            timeout=130,
+        )
 
         stdout_text = result.stdout.decode("utf-8", errors="replace")
         stderr_text = result.stderr.decode("utf-8", errors="replace")
@@ -244,30 +247,16 @@ async def run_pipeline():
                 content={"status": "error", "message": stderr_text[:500] or stdout_text[:500]},
             )
 
-    except Exception as e:
-        import traceback
-        print(f"[{datetime.now().strftime('%H:%M:%S')}] Exception: {traceback.format_exc()}")
-        return JSONResponse(
-            status_code=500,
-            content={"status": "error", "message": str(e)},
-        )
-
-    except Exception as e:
-        import traceback
-        print(f"[{datetime.now().strftime('%H:%M:%S')}] Exception: {traceback.format_exc()}")
-        return JSONResponse(
-            status_code=500,
-            content={"status": "error", "message": str(e)},
-        )
-
     except asyncio.TimeoutError:
+        print(f"[{datetime.now().strftime('%H:%M:%S')}] Pipeline timed out after 130 seconds")
         return JSONResponse(
             status_code=408,
             content={
                 "status": "timeout",
-                "message": "Pipeline timed out after 120 seconds",
+                "message": "Pipeline timed out after 130 seconds. Try running python aae_skill.py manually.",
             },
         )
+
     except Exception as e:
         import traceback
         tb = traceback.format_exc()
@@ -275,5 +264,5 @@ async def run_pipeline():
         print(tb)
         return JSONResponse(
             status_code=500,
-            content={"status": "error", "message": str(e), "traceback": tb},
+            content={"status": "error", "message": str(e)},
         )

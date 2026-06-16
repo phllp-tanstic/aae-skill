@@ -2,6 +2,11 @@ import json
 from datetime import datetime
 from classify_lifecycle import classify_all
 
+# Agent registration proof
+BNB_AGENT_ID = "1345"
+BNB_AGENT_TX = "0xa3cc8ded130da273bb8e0fb9217c21addb6d1b14fee2fa978f2daa30c189863f"
+BNB_REGISTRY = "0x8004A818BFB912233c491871b3d84c89A494BD9e"
+PANCAKESWAP_ROUTER = "0x13f4EA83D0bd40E75C8222255bc855a974568Dd4"
 
 STRATEGY_TEMPLATES = {
     "EMERGENCE": {
@@ -16,10 +21,12 @@ STRATEGY_TEMPLATES = {
         "time_horizon": "7-21 days",
         "max_drawdown_tolerance": "15%",
         "notes": "Split entry into 3 tranches over 48 hours to reduce timing risk",
+        "order_type": "LIMIT",
+        "execution_action": "BUY",
     },
-    "ACCELERATION": {
+    "EARLY_ACCELERATION": {
         "strategy_type": "Momentum Ride",
-        "thesis": "Narrative is confirmed and gaining mainstream traction. Ride the momentum with tight risk management.",
+        "thesis": "Narrative confirmed and gaining traction. Ride the momentum with tight risk management.",
         "entry_rule": "Enter when velocity_score 35-60 AND both volume AND price trending up AND global_regime != BTC_DOMINANCE",
         "entry_trigger": "Buy on pullback to 10-day moving average or volume confirmation",
         "position_size": "3-5% of portfolio per narrative (medium risk, confirmed trend)",
@@ -29,6 +36,23 @@ STRATEGY_TEMPLATES = {
         "time_horizon": "5-14 days",
         "max_drawdown_tolerance": "10%",
         "notes": "Reduce position size by 50% if BTC_DOMINANCE regime detected",
+        "order_type": "MARKET",
+        "execution_action": "BUY",
+    },
+    "LATE_ACCELERATION": {
+        "strategy_type": "Trend Following with Tight Stops",
+        "thesis": "Narrative has mainstream traction. Strong price action but risk of sudden reversal is elevated.",
+        "entry_rule": "Enter only on confirmed pullbacks > 8% from recent high with volume support",
+        "entry_trigger": "Buy on bounce from 10-day MA with volume confirmation above 20-day average",
+        "position_size": "2-3% of portfolio per narrative (medium-high risk, late stage)",
+        "exit_rule_profit": "Exit 50% at +20%, trail stop at 8% on remainder",
+        "exit_rule_time": "Exit full position if velocity_score drops below 50 within 7 days",
+        "stop_loss": "-8% from entry price",
+        "time_horizon": "3-10 days",
+        "max_drawdown_tolerance": "8%",
+        "notes": "Do not chase — only enter on confirmed dips. Risk of sharp reversal is high.",
+        "order_type": "LIMIT",
+        "execution_action": "BUY",
     },
     "SATURATION": {
         "strategy_type": "Fade the Narrative",
@@ -42,6 +66,8 @@ STRATEGY_TEMPLATES = {
         "time_horizon": "3-10 days",
         "max_drawdown_tolerance": "8%",
         "notes": "Only execute in NEUTRAL or ALTCOIN_SEASON regime — avoid shorting in BTC_DOMINANCE",
+        "order_type": "MARKET",
+        "execution_action": "SELL",
     },
     "DECAY": {
         "strategy_type": "Capital Rotation Exit",
@@ -55,22 +81,50 @@ STRATEGY_TEMPLATES = {
         "time_horizon": "Exit within 1-3 days",
         "max_drawdown_tolerance": "0% — capital preservation mode",
         "notes": "Rotate freed capital to any EMERGENCE narrative with velocity_score > 60",
+        "order_type": "MARKET",
+        "execution_action": "SELL",
     },
 }
+
+
+def build_bnb_execution_context(stage, template):
+    """Build BNB chain execution context for every strategy spec."""
+    return {
+        "chain": "BNB Smart Chain",
+        "network": "BSC Testnet (Chain ID: 97)",
+        "dex": "PancakeSwap V3",
+        "router": PANCAKESWAP_ROUTER,
+        "execution_action": template.get("execution_action", "BUY"),
+        "order_type": template.get("order_type", "LIMIT"),
+        "slippage_tolerance": "0.5%",
+        "agent_id": BNB_AGENT_ID,
+        "agent_tx": BNB_AGENT_TX,
+        "registry": BNB_REGISTRY,
+        "standard": "ERC-8004",
+        "bscscan": f"https://testnet.bscscan.com/tx/{BNB_AGENT_TX}",
+        "note": "Swap intent built and signed by TWAK. Not submitted — strategy spec only.",
+    }
 
 
 def generate_strategy_spec(classification_result, global_context):
     enriched = classification_result["enriched"]
     classification = classification_result["classification"]
     stage = classification["lifecycle_stage"]
-    template = STRATEGY_TEMPLATES.get(stage, STRATEGY_TEMPLATES["ACCELERATION"])
+
+    # Explicit stage mapping — no silent fallback to wrong template
+    if stage not in STRATEGY_TEMPLATES:
+        print(f"  WARNING: Unknown lifecycle stage '{stage}' — defaulting to EARLY_ACCELERATION template")
+        stage = "EARLY_ACCELERATION"
+
+    template = STRATEGY_TEMPLATES[stage]
     tokens = enriched.get("tokens", [])
     token_symbols = [t["symbol"] for t in tokens if t.get("symbol")]
 
+    # Regime-adjusted confidence and position sizing
     if stage == "EMERGENCE" and global_context["regime"] == "BTC_DOMINANCE":
         confidence_adjusted = round(classification["confidence"] * 0.85, 2)
         size_note = "REDUCE position size by 30% due to BTC dominance headwind"
-    elif stage == "ACCELERATION" and global_context["regime"] == "ALTCOIN_SEASON":
+    elif stage in ("EARLY_ACCELERATION", "LATE_ACCELERATION") and global_context["regime"] == "ALTCOIN_SEASON":
         confidence_adjusted = round(min(classification["confidence"] * 1.1, 1.0), 2)
         size_note = "INCREASE position size by 20% — altcoin season tailwind"
     else:
@@ -122,6 +176,7 @@ def generate_strategy_spec(classification_result, global_context):
             "benchmark": "BTC",
             "fee_assumption": "0.1% per trade",
         },
+        "bnb_execution_context": build_bnb_execution_context(stage, template),
     }
 
     return spec
@@ -163,18 +218,19 @@ if __name__ == "__main__":
         print(f"STRATEGY: {spec['strategy']['type']}")
         print(f"Thesis   : {spec['strategy']['thesis']}")
         print()
-        print(f"Entry Rule : {spec['strategy']['entry_rule']}")
+        print(f"Entry Rule    : {spec['strategy']['entry_rule']}")
         print(f"Entry Trigger : {spec['strategy']['entry_trigger']}")
         print(f"Position Size : {spec['strategy']['position_size']}")
         print(f"Size Adjustment: {spec['strategy']['position_size_adjustment']}")
         print()
-        print(f"Profit Exit : {spec['strategy']['exit_rule_profit']}")
-        print(f"Time Exit   : {spec['strategy']['exit_rule_time']}")
-        print(f"Stop Loss   : {spec['strategy']['stop_loss']}")
-        print(f"Time Horizon: {spec['strategy']['time_horizon']}")
+        print(f"Profit Exit  : {spec['strategy']['exit_rule_profit']}")
+        print(f"Time Exit    : {spec['strategy']['exit_rule_time']}")
+        print(f"Stop Loss    : {spec['strategy']['stop_loss']}")
+        print(f"Time Horizon : {spec['strategy']['time_horizon']}")
         print()
-        print(f"Assets to backtest: {spec['backtestable_assets']}")
-        print(f"AI Reasoning: {spec['ai_reasoning']}")
+        print(f"BNB Execution: Agent {spec['bnb_execution_context']['agent_id']} | {spec['bnb_execution_context']['order_type']} {spec['bnb_execution_context']['execution_action']} | {spec['bnb_execution_context']['dex']}")
+        print(f"Assets       : {spec['backtestable_assets']}")
+        print(f"AI Reasoning : {spec['ai_reasoning']}")
 
     print(f"\n\nTotal specs generated: {len(specs)}")
     print("Saving specs to strategy_output.json...")
