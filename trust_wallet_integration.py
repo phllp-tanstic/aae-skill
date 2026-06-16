@@ -24,17 +24,17 @@ TWAK_CMD = r"C:\Users\Aseja Oluwatobi\AppData\Roaming\npm\twak.cmd"
 
 
 def run_twak(args, timeout=30):
-    """Run a twak CLI command and return raw output."""
+    """Run a twak CLI command and return raw output. Forces UTF-8 encoding."""
     try:
         result = subprocess.run(
             [TWAK_CMD] + args,
             capture_output=True,
-            text=True,
             timeout=timeout,
             shell=False,
         )
-        output = result.stdout.strip()
-        error = result.stderr.strip() if result.returncode != 0 else None
+        output = result.stdout.decode("utf-8", errors="replace").strip()
+        stderr = result.stderr.decode("utf-8", errors="replace").strip()
+        error = stderr if result.returncode != 0 else None
         return output, error
     except subprocess.TimeoutExpired:
         return None, "timeout"
@@ -162,7 +162,7 @@ def build_signed_swap_intent(spec, wallet_address):
         return None
 
     primary_asset = assets[0]
-    position_size = "3%" if stage in ["EARLY_ACCELERATION", "ACCELERATION"] else "2%"
+    position_size = "3%" if stage in ["EARLY_ACCELERATION", "LATE_ACCELERATION"] else "2%"
 
     intent = {
         "intent_type": "SWAP",
@@ -238,21 +238,21 @@ def run_trust_wallet_integration(specs):
     all_signed = []
     signing_address = "0x28063194Fb2eCf43c98DB16e2EC9A97FbfE8C358"
 
-    print("\n  ── Live Price Feed ────────────────────────────────────")
+    print("\n  -- Live Price Feed ----------------------------------------")
     for symbol in ["BNB", "ETH", "BTC"]:
         price_data = get_token_price(symbol)
         if price_data:
             twak_prices[symbol] = price_data
-            print(f"  ✅ {price_data['symbol']:<6} ${price_data['price_usd']:<12} [{price_data['chain']}]")
+            print(f"  OK {price_data['symbol']:<6} ${price_data['price_usd']:<12} [{price_data['chain']}]")
             results[f"price_{symbol}"] = "SUCCESS"
         else:
-            print(f"  ⚠️  {symbol}: unavailable")
+            print(f"  WARN {symbol}: unavailable")
             results[f"price_{symbol}"] = "FAILED"
 
-    print("\n  ── Trending — Global ──────────────────────────────────")
+    print("\n  -- Trending Global ----------------------------------------")
     trending_global = get_trending_tokens()
     if trending_global:
-        print(f"  ✅ {len(trending_global)} trending tokens retrieved")
+        print(f"  OK {len(trending_global)} trending tokens retrieved")
         for t in trending_global[:5]:
             sym = t.get("symbol", t.get("name", "?"))
             price = t.get("price", t.get("priceUsd", "?"))
@@ -260,13 +260,13 @@ def run_trust_wallet_integration(specs):
             print(f"     {sym:<10} {str(price):<12} {change}")
         results["trending_global"] = "SUCCESS"
     else:
-        print("  ⚠️  No trending data")
+        print("  WARN No trending data")
         results["trending_global"] = "FAILED"
 
-    print("\n  ── Trending — BNB Chain ───────────────────────────────")
+    print("\n  -- Trending BNB Chain -------------------------------------")
     trending_bnb = get_trending_tokens(category="bnb")
     if trending_bnb:
-        print(f"  ✅ {len(trending_bnb)} BNB-native trending tokens")
+        print(f"  OK {len(trending_bnb)} BNB-native trending tokens")
         for t in trending_bnb[:5]:
             sym = t.get("symbol", t.get("name", "?"))
             price = t.get("price", t.get("priceUsd", "?"))
@@ -274,39 +274,51 @@ def run_trust_wallet_integration(specs):
             print(f"     {sym:<10} {str(price):<12} {change}")
         results["trending_bnb"] = "SUCCESS"
     else:
-        print("  ⚠️  No BNB trending data")
+        print("  WARN No BNB trending data")
         results["trending_bnb"] = "FAILED"
 
-    print("\n  ── Self-Custody Strategy Spec Signing ────────────────")
+    print("\n  -- Self-Custody Strategy Spec Signing ---------------------")
     print("  Method: twak wallet sign-message --chain bsc")
     print("  Keys never leave the local machine (ECDSA secp256k1)")
     print()
-    for spec in specs[:3]:
-        print(f"  Signing: {spec.get('narrative')} [{spec.get('lifecycle_stage')}]")
+
+    # Sign ALL specs, not just first 3
+    for spec in specs:
+        stage = spec.get("lifecycle_stage", "")
+        # Skip DECAY specs — no point signing an exit-only spec
+        if stage == "DECAY":
+            print(f"  SKIP {spec.get('narrative')} [{stage}] — exit spec, no signing needed")
+            continue
+        print(f"  Signing: {spec.get('narrative')} [{stage}]")
         signed, error = sign_strategy_spec(spec)
         if signed:
             all_signed.append(signed)
             signing_address = signed.get("signed_by", signing_address)
-            print(f"  ✅ Signed by  : {signed['signed_by']}")
+            print(f"  OK Signed by  : {signed['signed_by']}")
             print(f"     Spec hash  : {signed['spec_hash'][:32]}...")
             print(f"     Signature  : {signed['signature'][:32]}...")
             results[f"sign_{spec.get('spec_id', 'spec')}"] = "SUCCESS"
         else:
-            print(f"  ⚠️  {error}")
+            print(f"  WARN {error}")
             results[f"sign_{spec.get('spec_id', 'spec')}"] = f"FAILED: {error}"
         print()
 
-    print("\n  ── Signed Swap Intents (Execution Layer) ──────────────")
+    print("\n  -- Signed Swap Intents (Execution Layer) ------------------")
     print("  Method: TWAK builds + signs PancakeSwap V3 swap intents")
     print("  Status: INTENT_BUILT — not auto-submitted (strategy spec, not bot)")
     print()
     swap_intents = []
-    for spec in specs[:2]:
+
+    # Build intents for all non-DECAY, non-SATURATION specs
+    for spec in specs:
+        stage = spec.get("lifecycle_stage", "")
+        if stage in ("DECAY", "SATURATION"):
+            continue
         intent = build_signed_swap_intent(spec, signing_address)
         if intent:
             swap_intents.append(intent)
             si = intent["swap_intent"]
-            print(f"  ✅ Intent: {si['from_token']} → {si['to_token']}")
+            print(f"  OK Intent: {si['from_token']} -> {si['to_token']}")
             print(f"     Narrative : {si['narrative']} [{si['lifecycle_stage']}]")
             print(f"     Size      : {si['position_size_pct']} of portfolio")
             print(f"     Protocol  : {si['protocol']}")
@@ -317,17 +329,17 @@ def run_trust_wallet_integration(specs):
             results[f"intent_{spec.get('narrative','unknown')}"] = "FAILED"
         print()
 
-    print("\n  ── x402 Quote via TWAK ────────────────────────────────")
+    print("\n  -- x402 Quote via TWAK ------------------------------------")
     x402_url = "https://pro-api.coinmarketcap.com/x402/v3/global-metrics/quotes/latest"
     quote_output, quote_error = x402_quote_via_twak(x402_url)
     if quote_output:
-        print(f"  ✅ x402 quote received:")
+        print(f"  OK x402 quote received:")
         for line in quote_output.split("\n")[:6]:
             if line.strip():
                 print(f"     {line.strip()}")
         results["x402_quote"] = "SUCCESS"
     else:
-        print(f"  ⚠️  {quote_error}")
+        print(f"  WARN {quote_error}")
         results["x402_quote"] = f"FAILED: {quote_error}"
 
     successful = sum(1 for v in results.values() if v == "SUCCESS")
@@ -338,11 +350,11 @@ def run_trust_wallet_integration(specs):
         "twak_version": "0.18.0",
         "generated_at": datetime.now().isoformat(),
         "capabilities_used": [
-            "price — live token prices",
-            "trending — global and BNB-native",
-            "wallet sign-message — self-custody spec signing",
-            "build_signed_swap_intent — PancakeSwap V3 execution layer",
-            "x402 quote — payment preview",
+            "price -- live token prices",
+            "trending -- global and BNB-native",
+            "wallet sign-message -- self-custody spec signing",
+            "build_signed_swap_intent -- PancakeSwap V3 execution layer",
+            "x402 quote -- payment preview",
         ],
         "live_prices": twak_prices,
         "trending_global": trending_global[:10] if trending_global else [],
@@ -354,10 +366,10 @@ def run_trust_wallet_integration(specs):
         "total_calls": total,
     }
 
-    with open("twak_intelligence.json", "w") as f:
-        json.dump(output, f, indent=2)
+    with open("twak_intelligence.json", "w", encoding="utf-8") as f:
+        json.dump(output, f, indent=2, ensure_ascii=False)
 
-    print(f"\n  {'─'*61}")
+    print(f"\n  {'-'*61}")
     print(f"  TWAK calls successful : {successful} / {total}")
     print(f"  Signed specs          : {len(all_signed)}")
     print(f"  Swap intents signed   : {len(swap_intents)}")
@@ -372,11 +384,11 @@ if __name__ == "__main__":
 
     output_files = glob.glob("aae_output_*.json")
     if output_files:
-        latest = max(output_files, key=os.path.getctime)
-        with open(latest, "r") as f:
+        latest = max(output_files, key=os.path.getmtime)
+        with open(latest, "r", encoding="utf-8") as f:
             data = json.load(f)
     else:
-        with open("strategy_output.json", "r") as f:
+        with open("strategy_output.json", "r", encoding="utf-8") as f:
             data = json.load(f)
 
     if isinstance(data, list):
