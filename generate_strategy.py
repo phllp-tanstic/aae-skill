@@ -161,6 +161,8 @@ def generate_strategy_spec(classification_result, global_context):
             "volume_change_24h": enriched["volume_change_24h"],
             "avg_price_change_24h": enriched["avg_change_24h"],
             "divergence_signal": enriched["adjusted_signal"],
+            "relative_alpha_vs_btc": enriched.get("relative_attention_alpha", 0),
+            "btc_baseline_volume_change": enriched.get("market_volume_change", 0),
         },
         "strategy": {
             "type": template["strategy_type"],
