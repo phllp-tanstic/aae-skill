@@ -139,7 +139,7 @@ def generate_strategy_spec(classification_result, global_context):
         size_note = "Standard position sizing applies"
 
     spec = {
-        "spec_id": f"AAE-{datetime.now().strftime('%Y%m%d-%H%M')}-{stage[:3]}",
+        "spec_id": f"AAE-{datetime.now().strftime('%Y%m%d-%H%M%S')}-{stage[:3]}-{classification['narrative_name'][:4].upper().replace(' ','')}",
         "generated_at": datetime.now().isoformat(),
         "engine": "Attention Arbitrage Engine v2.0",
         "narrative": classification["narrative_name"],
