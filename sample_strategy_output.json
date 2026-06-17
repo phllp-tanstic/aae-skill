@@ -1,0 +1,377 @@
+[
+  {
+    "spec_id": "AAE-20260617-231714-EME-LAUN",
+    "generated_at": "2026-06-17T23:17:14.559040",
+    "engine": "Attention Arbitrage Engine v2.0",
+    "narrative": "LaunchZone",
+    "lifecycle_stage": "EMERGENCE",
+    "confidence": 0.68,
+    "opportunity_score": 70,
+    "risk_level": "HIGH",
+    "ai_reasoning": [
+      "Volume surging with a 10236.9295 change in 24 hours, indicating high interest and potential for growth",
+      "Relative attention alpha is high at 10216.89, suggesting strong narrative momentum",
+      "Token BCOIN has a high 24-hour change of 22.04 and a 7-day change of 64.8, indicating strong price action and potential for further acceleration"
+    ],
+    "estimated_half_life_days": 14,
+    "attention_decay_probability": 0.3,
+    "historical_analog": {
+      "match": "Memecoin Supercycle 2024",
+      "similarity_score": 0.6,
+      "insight": "This analog suggests that the LaunchZone narrative may experience rapid growth and attention, but also faces a high risk of sudden decline and loss of interest"
+    },
+    "market_context": {
+      "regime": "BTC_DOMINANCE",
+      "btc_dominance": 58.26,
+      "regime_note": "Capital concentrated in BTC \u2014 altcoin narratives face headwind"
+    },
+    "signal_data": {
+      "velocity_score": 100,
+      "volume_change_24h": 10236.9295,
+      "avg_price_change_24h": 22.034,
+      "divergence_signal": "MODERATE CONVICTION \u2014 strong divergence but BTC dominance headwind",
+      "relative_alpha_vs_btc": 10216.89,
+      "btc_baseline_volume_change": 20.04
+    },
+    "strategy": {
+      "type": "Early Position Accumulation",
+      "thesis": "Narrative attention is accelerating faster than price. Accumulate before mainstream discovery.",
+      "entry_rule": "Enter when velocity_score > 60 AND volume_change_24h > 100% AND avg_price_change_24h < 15%",
+      "entry_trigger": "Buy on next daily open after signal confirmation",
+      "position_size": "2-4% of portfolio per narrative (high risk, early stage)",
+      "position_size_adjustment": "REDUCE position size by 30% due to BTC dominance headwind",
+      "exit_rule_profit": "Exit 50% position at +40% price gain, trail stop on remainder",
+      "exit_rule_time": "Exit full position if velocity_score drops below 40 within 14 days",
+      "stop_loss": "-15% from entry price",
+      "time_horizon": "7-21 days",
+      "max_drawdown_tolerance": "15%",
+      "notes": "Split entry into 3 tranches over 48 hours to reduce timing risk"
+    },
+    "backtestable_assets": [
+      "ZUKI",
+      "BCOIN",
+      "LZ"
+    ],
+    "backtest_parameters": {
+      "lookback_window": "30 days",
+      "entry_on": "daily open",
+      "benchmark": "BTC",
+      "fee_assumption": "0.1% per trade"
+    },
+    "bnb_execution_context": {
+      "chain": "BNB Smart Chain",
+      "network": "BSC Testnet (Chain ID: 97)",
+      "dex": "PancakeSwap V3",
+      "router": "0x13f4EA83D0bd40E75C8222255bc855a974568Dd4",
+      "execution_action": "BUY",
+      "order_type": "LIMIT",
+      "slippage_tolerance": "0.5%",
+      "agent_id": "1345",
+      "agent_tx": "0xa3cc8ded130da273bb8e0fb9217c21addb6d1b14fee2fa978f2daa30c189863f",
+      "registry": "0x8004A818BFB912233c491871b3d84c89A494BD9e",
+      "standard": "ERC-8004",
+      "bscscan": "https://testnet.bscscan.com/tx/0xa3cc8ded130da273bb8e0fb9217c21addb6d1b14fee2fa978f2daa30c189863f",
+      "note": "Swap intent built and signed by TWAK. Not submitted \u2014 strategy spec only."
+    }
+  },
+  {
+    "spec_id": "AAE-20260617-231714-EME-MVB",
+    "generated_at": "2026-06-17T23:17:14.559040",
+    "engine": "Attention Arbitrage Engine v2.0",
+    "narrative": "MVB",
+    "lifecycle_stage": "EMERGENCE",
+    "confidence": 0.68,
+    "opportunity_score": 60,
+    "risk_level": "HIGH",
+    "ai_reasoning": [
+      "High velocity score of 70 indicates strong momentum",
+      "Volume change of 131.89% in 24 hours suggests surging interest",
+      "Relative attention alpha of 111.85 indicates high attention and potential for further growth"
+    ],
+    "estimated_half_life_days": 14,
+    "attention_decay_probability": 0.3,
+    "historical_analog": {
+      "match": "Memecoin Supercycle 2024",
+      "similarity_score": 0.7,
+      "insight": "This analog suggests that MVB may experience rapid growth and attention, but also faces high risk of decay and loss of momentum"
+    },
+    "market_context": {
+      "regime": "BTC_DOMINANCE",
+      "btc_dominance": 58.26,
+      "regime_note": "Capital concentrated in BTC \u2014 altcoin narratives face headwind"
+    },
+    "signal_data": {
+      "velocity_score": 70,
+      "volume_change_24h": 131.8914,
+      "avg_price_change_24h": 9.9269,
+      "divergence_signal": "MODERATE CONVICTION \u2014 strong divergence but BTC dominance headwind",
+      "relative_alpha_vs_btc": 111.85,
+      "btc_baseline_volume_change": 20.04
+    },
+    "strategy": {
+      "type": "Early Position Accumulation",
+      "thesis": "Narrative attention is accelerating faster than price. Accumulate before mainstream discovery.",
+      "entry_rule": "Enter when velocity_score > 60 AND volume_change_24h > 100% AND avg_price_change_24h < 15%",
+      "entry_trigger": "Buy on next daily open after signal confirmation",
+      "position_size": "2-4% of portfolio per narrative (high risk, early stage)",
+      "position_size_adjustment": "REDUCE position size by 30% due to BTC dominance headwind",
+      "exit_rule_profit": "Exit 50% position at +40% price gain, trail stop on remainder",
+      "exit_rule_time": "Exit full position if velocity_score drops below 40 within 14 days",
+      "stop_loss": "-15% from entry price",
+      "time_horizon": "7-21 days",
+      "max_drawdown_tolerance": "15%",
+      "notes": "Split entry into 3 tranches over 48 hours to reduce timing risk"
+    },
+    "backtestable_assets": [
+      "VELVET",
+      "BAS",
+      "ID"
+    ],
+    "backtest_parameters": {
+      "lookback_window": "30 days",
+      "entry_on": "daily open",
+      "benchmark": "BTC",
+      "fee_assumption": "0.1% per trade"
+    },
+    "bnb_execution_context": {
+      "chain": "BNB Smart Chain",
+      "network": "BSC Testnet (Chain ID: 97)",
+      "dex": "PancakeSwap V3",
+      "router": "0x13f4EA83D0bd40E75C8222255bc855a974568Dd4",
+      "execution_action": "BUY",
+      "order_type": "LIMIT",
+      "slippage_tolerance": "0.5%",
+      "agent_id": "1345",
+      "agent_tx": "0xa3cc8ded130da273bb8e0fb9217c21addb6d1b14fee2fa978f2daa30c189863f",
+      "registry": "0x8004A818BFB912233c491871b3d84c89A494BD9e",
+      "standard": "ERC-8004",
+      "bscscan": "https://testnet.bscscan.com/tx/0xa3cc8ded130da273bb8e0fb9217c21addb6d1b14fee2fa978f2daa30c189863f",
+      "note": "Swap intent built and signed by TWAK. Not submitted \u2014 strategy spec only."
+    }
+  },
+  {
+    "spec_id": "AAE-20260617-231714-EAR-ENER",
+    "generated_at": "2026-06-17T23:17:14.559040",
+    "engine": "Attention Arbitrage Engine v2.0",
+    "narrative": "Energy",
+    "lifecycle_stage": "EARLY_ACCELERATION",
+    "confidence": 0.8,
+    "opportunity_score": 60,
+    "risk_level": "MEDIUM",
+    "ai_reasoning": [
+      "The narrative velocity score is 43.51, indicating a moderate level of momentum building",
+      "The volume change in the last 24 hours is 57.1173%, suggesting increasing interest in the narrative",
+      "The relative attention alpha is 37.08, indicating a moderate level of attention being focused on the narrative"
+    ],
+    "estimated_half_life_days": 30,
+    "attention_decay_probability": 0.2,
+    "historical_analog": {
+      "match": "DeFi Summer 2020",
+      "similarity_score": 0.6,
+      "insight": "This analog suggests that the Energy narrative may experience rapid growth and adoption, similar to the DeFi Summer of 2020, but with a higher risk of correction due to the current BTC dominance"
+    },
+    "market_context": {
+      "regime": "BTC_DOMINANCE",
+      "btc_dominance": 58.26,
+      "regime_note": "Capital concentrated in BTC \u2014 altcoin narratives face headwind"
+    },
+    "signal_data": {
+      "velocity_score": 43.51,
+      "volume_change_24h": 57.1173,
+      "avg_price_change_24h": -2.0215,
+      "divergence_signal": "MODERATE \u2014 early momentum building",
+      "relative_alpha_vs_btc": 37.08,
+      "btc_baseline_volume_change": 20.04
+    },
+    "strategy": {
+      "type": "Momentum Ride",
+      "thesis": "Narrative confirmed and gaining traction. Ride the momentum with tight risk management.",
+      "entry_rule": "Enter when velocity_score 35-60 AND both volume AND price trending up AND global_regime != BTC_DOMINANCE",
+      "entry_trigger": "Buy on pullback to 10-day moving average or volume confirmation",
+      "position_size": "3-5% of portfolio per narrative (medium risk, confirmed trend)",
+      "position_size_adjustment": "Standard position sizing applies",
+      "exit_rule_profit": "Exit 33% at +25%, 33% at +50%, trail stop on final 33%",
+      "exit_rule_time": "Exit if volume_change_24h drops below 10% for 3 consecutive days",
+      "stop_loss": "-10% from entry price",
+      "time_horizon": "5-14 days",
+      "max_drawdown_tolerance": "10%",
+      "notes": "Reduce position size by 50% if BTC_DOMINANCE regime detected"
+    },
+    "backtestable_assets": [
+      "STAR",
+      "POWR",
+      "EWT"
+    ],
+    "backtest_parameters": {
+      "lookback_window": "30 days",
+      "entry_on": "daily open",
+      "benchmark": "BTC",
+      "fee_assumption": "0.1% per trade"
+    },
+    "bnb_execution_context": {
+      "chain": "BNB Smart Chain",
+      "network": "BSC Testnet (Chain ID: 97)",
+      "dex": "PancakeSwap V3",
+      "router": "0x13f4EA83D0bd40E75C8222255bc855a974568Dd4",
+      "execution_action": "BUY",
+      "order_type": "MARKET",
+      "slippage_tolerance": "0.5%",
+      "agent_id": "1345",
+      "agent_tx": "0xa3cc8ded130da273bb8e0fb9217c21addb6d1b14fee2fa978f2daa30c189863f",
+      "registry": "0x8004A818BFB912233c491871b3d84c89A494BD9e",
+      "standard": "ERC-8004",
+      "bscscan": "https://testnet.bscscan.com/tx/0xa3cc8ded130da273bb8e0fb9217c21addb6d1b14fee2fa978f2daa30c189863f",
+      "note": "Swap intent built and signed by TWAK. Not submitted \u2014 strategy spec only."
+    }
+  },
+  {
+    "spec_id": "AAE-20260617-231714-LAT-YIEL",
+    "generated_at": "2026-06-17T23:17:14.559040",
+    "engine": "Attention Arbitrage Engine v2.0",
+    "narrative": "Yield Aggregator",
+    "lifecycle_stage": "LATE_ACCELERATION",
+    "confidence": 0.8,
+    "opportunity_score": 6,
+    "risk_level": "MEDIUM",
+    "ai_reasoning": [
+      "The narrative is in the late acceleration stage as hinted by the stage_hint, with a velocity score of 35.83 and a relative attention alpha of 26.83, indicating strong momentum.",
+      "The tokens associated with the narrative, such as Convex Finance (CVX) and Yearn (YFI), have accelerating volume trends, further supporting the late acceleration stage.",
+      "However, the global regime is BTC_DOMINANCE, with a high BTC dominance of 58.26, which may pose a headwind for altcoin narratives like Yield Aggregator."
+    ],
+    "estimated_half_life_days": 45,
+    "attention_decay_probability": 0.3,
+    "historical_analog": {
+      "match": "DeFi Summer 2020",
+      "similarity_score": 0.7,
+      "insight": "This analog predicts a potential for significant price appreciation in the short term, but also a high risk of correction due to the high BTC dominance and potential for attention decay."
+    },
+    "market_context": {
+      "regime": "BTC_DOMINANCE",
+      "btc_dominance": 58.26,
+      "regime_note": "Capital concentrated in BTC \u2014 altcoin narratives face headwind"
+    },
+    "signal_data": {
+      "velocity_score": 35.83,
+      "volume_change_24h": 46.866,
+      "avg_price_change_24h": 1.3163,
+      "divergence_signal": "WEAK \u2014 some divergence but limited edge",
+      "relative_alpha_vs_btc": 26.83,
+      "btc_baseline_volume_change": 20.04
+    },
+    "strategy": {
+      "type": "Trend Following with Tight Stops",
+      "thesis": "Narrative has mainstream traction. Strong price action but risk of sudden reversal is elevated.",
+      "entry_rule": "Enter only on confirmed pullbacks > 8% from recent high with volume support",
+      "entry_trigger": "Buy on bounce from 10-day MA with volume confirmation above 20-day average",
+      "position_size": "2-3% of portfolio per narrative (medium-high risk, late stage)",
+      "position_size_adjustment": "Standard position sizing applies",
+      "exit_rule_profit": "Exit 50% at +20%, trail stop at 8% on remainder",
+      "exit_rule_time": "Exit full position if velocity_score drops below 50 within 7 days",
+      "stop_loss": "-8% from entry price",
+      "time_horizon": "3-10 days",
+      "max_drawdown_tolerance": "8%",
+      "notes": "Do not chase \u2014 only enter on confirmed dips. Risk of sharp reversal is high."
+    },
+    "backtestable_assets": [
+      "CVX",
+      "YFI",
+      "SFI"
+    ],
+    "backtest_parameters": {
+      "lookback_window": "30 days",
+      "entry_on": "daily open",
+      "benchmark": "BTC",
+      "fee_assumption": "0.1% per trade"
+    },
+    "bnb_execution_context": {
+      "chain": "BNB Smart Chain",
+      "network": "BSC Testnet (Chain ID: 97)",
+      "dex": "PancakeSwap V3",
+      "router": "0x13f4EA83D0bd40E75C8222255bc855a974568Dd4",
+      "execution_action": "BUY",
+      "order_type": "LIMIT",
+      "slippage_tolerance": "0.5%",
+      "agent_id": "1345",
+      "agent_tx": "0xa3cc8ded130da273bb8e0fb9217c21addb6d1b14fee2fa978f2daa30c189863f",
+      "registry": "0x8004A818BFB912233c491871b3d84c89A494BD9e",
+      "standard": "ERC-8004",
+      "bscscan": "https://testnet.bscscan.com/tx/0xa3cc8ded130da273bb8e0fb9217c21addb6d1b14fee2fa978f2daa30c189863f",
+      "note": "Swap intent built and signed by TWAK. Not submitted \u2014 strategy spec only."
+    }
+  },
+  {
+    "spec_id": "AAE-20260617-231714-DEC-ANIM",
+    "generated_at": "2026-06-17T23:17:14.559040",
+    "engine": "Attention Arbitrage Engine v2.0",
+    "narrative": "Animal Racing",
+    "lifecycle_stage": "DECAY",
+    "confidence": 0.8,
+    "opportunity_score": 2,
+    "risk_level": "HIGH",
+    "ai_reasoning": [
+      "The stage_hint is DECAY, indicating a decline in narrative attention and momentum.",
+      "The velocity_score is 23.56, which is relatively low, suggesting a loss of momentum.",
+      "The volume_change_24h is 31.1119, but the avg_change_24h and market_cap_change_24h are both negative, indicating a decline in market activity."
+    ],
+    "estimated_half_life_days": 14,
+    "attention_decay_probability": 0.7,
+    "historical_analog": {
+      "match": "Memecoin Supercycle 2024",
+      "similarity_score": 0.6,
+      "insight": "This analog suggests that the Animal Racing narrative may follow a similar pattern of rapid decline in attention and price, as seen in the Memecoin Supercycle 2024."
+    },
+    "market_context": {
+      "regime": "BTC_DOMINANCE",
+      "btc_dominance": 58.26,
+      "regime_note": "Capital concentrated in BTC \u2014 altcoin narratives face headwind"
+    },
+    "signal_data": {
+      "velocity_score": 23.56,
+      "volume_change_24h": 31.1119,
+      "avg_price_change_24h": -1.4643,
+      "divergence_signal": "NEUTRAL \u2014 no clear divergence",
+      "relative_alpha_vs_btc": 11.07,
+      "btc_baseline_volume_change": 20.04
+    },
+    "strategy": {
+      "type": "Capital Rotation Exit",
+      "thesis": "Narrative momentum exhausted. Rotate capital to higher-velocity opportunities.",
+      "entry_rule": "No new long entries. If holding, exit on next volume spike above 30-day average.",
+      "entry_trigger": "No entry. Exit only.",
+      "position_size": "0% new allocation",
+      "position_size_adjustment": "Standard position sizing applies",
+      "exit_rule_profit": "Exit all remaining positions within 48 hours",
+      "exit_rule_time": "Immediate exit",
+      "stop_loss": "N/A \u2014 exit position",
+      "time_horizon": "Exit within 1-3 days",
+      "max_drawdown_tolerance": "0% \u2014 capital preservation mode",
+      "notes": "Rotate freed capital to any EMERGENCE narrative with velocity_score > 60"
+    },
+    "backtestable_assets": [
+      "ZERC",
+      "DOGA",
+      "ZED"
+    ],
+    "backtest_parameters": {
+      "lookback_window": "30 days",
+      "entry_on": "daily open",
+      "benchmark": "BTC",
+      "fee_assumption": "0.1% per trade"
+    },
+    "bnb_execution_context": {
+      "chain": "BNB Smart Chain",
+      "network": "BSC Testnet (Chain ID: 97)",
+      "dex": "PancakeSwap V3",
+      "router": "0x13f4EA83D0bd40E75C8222255bc855a974568Dd4",
+      "execution_action": "SELL",
+      "order_type": "MARKET",
+      "slippage_tolerance": "0.5%",
+      "agent_id": "1345",
+      "agent_tx": "0xa3cc8ded130da273bb8e0fb9217c21addb6d1b14fee2fa978f2daa30c189863f",
+      "registry": "0x8004A818BFB912233c491871b3d84c89A494BD9e",
+      "standard": "ERC-8004",
+      "bscscan": "https://testnet.bscscan.com/tx/0xa3cc8ded130da273bb8e0fb9217c21addb6d1b14fee2fa978f2daa30c189863f",
+      "note": "Swap intent built and signed by TWAK. Not submitted \u2014 strategy spec only."
+    }
+  }
+]

@@ -1,0 +1,126 @@
+{
+  "AAE-20260617-231714-EME-LAUN": {
+    "narrative": "LaunchZone",
+    "lifecycle_stage": "EMERGENCE",
+    "opportunity_score": 70,
+    "asset_results": [
+      {
+        "total_return_pct": 19.38,
+        "max_drawdown_pct": 2.04,
+        "sharpe_ratio": 6.94,
+        "initial_value": 1000.0,
+        "final_value": 1193.77,
+        "days_simulated": 28,
+        "symbol": "BCOIN",
+        "exit_reason": "profit target +40%"
+      }
+    ]
+  },
+  "AAE-20260617-231714-EME-MVB": {
+    "narrative": "MVB",
+    "lifecycle_stage": "EMERGENCE",
+    "opportunity_score": 60,
+    "asset_results": [
+      {
+        "total_return_pct": 19.25,
+        "max_drawdown_pct": 9.56,
+        "sharpe_ratio": 3.27,
+        "initial_value": 1000.0,
+        "final_value": 1192.54,
+        "days_simulated": 28,
+        "symbol": "VELVET",
+        "exit_reason": "profit target +40%"
+      },
+      {
+        "total_return_pct": 39.64,
+        "max_drawdown_pct": 0,
+        "sharpe_ratio": 8.92,
+        "initial_value": 1000.0,
+        "final_value": 1396.37,
+        "days_simulated": 28,
+        "symbol": "BAS",
+        "exit_reason": "profit target +40%"
+      },
+      {
+        "total_return_pct": -10.91,
+        "max_drawdown_pct": 37.28,
+        "sharpe_ratio": -0.19,
+        "initial_value": 1000.0,
+        "final_value": 890.89,
+        "days_simulated": 28,
+        "symbol": "ID",
+        "exit_reason": "stop loss -15%"
+      }
+    ]
+  },
+  "AAE-20260617-231714-EAR-ENER": {
+    "narrative": "Energy",
+    "lifecycle_stage": "EARLY_ACCELERATION",
+    "opportunity_score": 60,
+    "asset_results": [
+      {
+        "total_return_pct": -4.8,
+        "max_drawdown_pct": 8.47,
+        "sharpe_ratio": -2.22,
+        "initial_value": 1000.0,
+        "final_value": 951.99,
+        "days_simulated": 28,
+        "symbol": "POWR",
+        "exit_reason": "stop loss -10%"
+      },
+      {
+        "total_return_pct": -4.88,
+        "max_drawdown_pct": 13.07,
+        "sharpe_ratio": -0.71,
+        "initial_value": 1000.0,
+        "final_value": 951.21,
+        "days_simulated": 28,
+        "symbol": "EWT",
+        "exit_reason": "stop loss -10%"
+      }
+    ]
+  },
+  "AAE-20260617-231714-LAT-YIEL": {
+    "narrative": "Yield Aggregator",
+    "lifecycle_stage": "LATE_ACCELERATION",
+    "opportunity_score": 6,
+    "asset_results": [
+      {
+        "total_return_pct": -4.68,
+        "max_drawdown_pct": 5.14,
+        "sharpe_ratio": -3.19,
+        "initial_value": 1000.0,
+        "final_value": 953.24,
+        "days_simulated": 28,
+        "symbol": "CVX",
+        "exit_reason": "stop loss -8%"
+      },
+      {
+        "total_return_pct": -4.18,
+        "max_drawdown_pct": 4.88,
+        "sharpe_ratio": -2.67,
+        "initial_value": 1000.0,
+        "final_value": 958.21,
+        "days_simulated": 28,
+        "symbol": "YFI",
+        "exit_reason": "stop loss -8%"
+      },
+      {
+        "total_return_pct": -7.5,
+        "max_drawdown_pct": 11.45,
+        "sharpe_ratio": -2.08,
+        "initial_value": 1000.0,
+        "final_value": 924.96,
+        "days_simulated": 28,
+        "symbol": "SFI",
+        "exit_reason": "stop loss -8%"
+      }
+    ]
+  },
+  "AAE-20260617-231714-DEC-ANIM": {
+    "narrative": "Animal Racing",
+    "lifecycle_stage": "DECAY",
+    "opportunity_score": 2,
+    "asset_results": []
+  }
+}
