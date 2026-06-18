@@ -369,15 +369,11 @@ All pipeline modules execute within a unified Python environment with explicit d
 
 **Role:** Core execution environment.
 
-### yfinance
+### CoinMarketCap OHLCV (Pro)
+Historical daily OHLCV data is fetched directly from CoinMarketCap Pro API for backtesting and strategy evaluation. This ensures backtest results use real narrative token price data rather than proxies.
 
-**Purpose:** Historical market data for validation.
-
-Historical price data is used exclusively for backtesting and strategy evaluation.
-
-This layer enables validation of generated strategy specifications against historical market conditions without affecting the live signal pipeline.
-
-**Role:** Historical data source for backtesting.
+**Endpoint:** `/v1/cryptocurrency/ohlcv/historical`
+**Role:** Primary historical data source for backtesting.
 
 ### pandas
 
@@ -842,7 +838,7 @@ Narrative attention signals are evaluated within this macro context. A strong na
 
 **Historical Validation Data**
 
-Historical validation data is sourced from yfinance, which provides 30 days of daily OHLCV data for backtestable assets.
+Historical validation data is sourced from Coinmarketcap, which provides 30 days of daily OHLCV data for backtestable assets.
 
 This dataset is used exclusively by `backtest_spec.py` and is not part of the live signal generation pipeline.
 
@@ -882,7 +878,7 @@ source venv/bin/activate
 Install the required Python dependencies.
 
 ```bash
-pip install groq requests python-dotenv pandas yfinance mcp bnbagent web3 anthropic fastapi uvicorn
+pip install groq requests python-dotenv pandas mcp bnbagent web3 anthropic fastapi uvicorn
 ```
 
 Install the Trust Wallet CLI.
@@ -1049,7 +1045,7 @@ for running other commands while the server stays active in the first terminal.
 
 The following results were generated during a live execution of Attention Arbitrage Engine v2.0 on **2026-06-10 02:22:49 UTC**.
 
-The engine identified **Intent** as the leading narrative opportunity, classifying it as **EARLY_ACCELERATION** with an attention score of **70.05/100**, relative alpha of **+70% versus market**, price confirmation of **18.97%**, opportunity score of **60/100**, and confidence of **80%**. The classification estimated a narrative half-life of approximately **30 days** with a **20%** decay probability. The AI reasoning was based on a **75%** 24-hour volume increase, a velocity score of **70.05**, and broad participation across constituent assets with an average price increase of **18.97%**.
+The engine identified **LaunchZone** as the leading narrative opportunity, classifying it as **EMERGENCE** with an attention score of **100/100**, relative alpha of **+10,216% versus BTC baseline**, price confirmation of **22.03%**, opportunity score of **70/100**, and confidence of **80%**. The classification estimated a narrative half-life of approximately **14 days** with a **30%** decay probability, matched to the **Memecoin Supercycle 2024** historical analog with 60% similarity.
 
 The engine also identified **Launchzone** as an **EMERGENCE** stage narrative with an attention score of **77.13/100**, relative alpha of **+148% versus market**, price confirmation of **5.18%**, and an estimated half-life of **14 days**.
 
@@ -1085,6 +1081,18 @@ For each classified narrative, the engine generates a structured strategy specif
   "backtestable_assets": ["VELVET", "COW", "ACX"]
 }
 ```
+
+**Sample backtest results are committed to the repository** in `sample_backtest_results.json` and can be reviewed without running the pipeline.
+
+| Asset | Narrative | Stage | Return | Sharpe | Exit |
+|-------|-----------|-------|--------|--------|------|
+| BAS | MVB | EMERGENCE | +39.64% | 8.92 | Profit target +40% |
+| BCOIN | LaunchZone | EMERGENCE | +19.38% | 6.94 | Profit target +40% |
+| VELVET | MVB | EMERGENCE | +19.25% | 3.27 | Profit target +40% |
+| POWR | Energy | EARLY_ACCELERATION | -4.80% | -2.22 | Stop loss -10% |
+| GODS | Immutable zkEVM | EARLY_ACCELERATION | -9.47% | -3.30 | Stop loss -10% |
+
+**Pass rate: 33% (3/9 assets)** in BTC dominance bear market conditions. Stop losses firing correctly on all losing trades confirms risk management integrity. Backtest uses 30-day CMC Pro OHLCV data.
 
 #### **Historical Validation**
 
