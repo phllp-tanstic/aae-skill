@@ -2,7 +2,11 @@
 
 An AI-powered narrative intelligence system that detects attention-price divergence, classifies narrative lifecycle stage, predicts narrative half-life, forecasts capital rotation, and generates backtestable trading strategies before market consensus forms.
 
-![alt text](<BNB Agent ID-1345-green.svg>)  ![alt text](<BNB x CMC-Hackathon Track 2-F0B90B.svg>)  ![alt text](<CMC MCP-Connected-blue.svg>)   ![alt text](<Trust Wallet-Agent Kit-blue.svg>)  ![alt text](<Python-3 (2).svg>)
+![BNB Agent ID](https://img.shields.io/badge/BNB%20Agent%20ID-1345-brightgreen)
+![Hackathon](https://img.shields.io/badge/BNB%20x%20CMC-Hackathon%20Track%202-F0B90B)
+![CMC MCP](https://img.shields.io/badge/CMC%20MCP-Connected-blue)
+![Trust Wallet](https://img.shields.io/badge/Trust%20Wallet-Agent%20Kit-blue)
+![Python](https://img.shields.io/badge/Python-3.11%2B-blue)
 
 ---
 
