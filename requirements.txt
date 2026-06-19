@@ -1,9 +1,8 @@
 groq
-anthropic
 requests
 python-dotenv
 pandas
-yfinance
+CMC Pro
 mcp
 bnbagent
 web3

@@ -217,7 +217,7 @@ if __name__ == "__main__":
 
     output_files = glob.glob("aae_output_*.json")
     if output_files:
-        latest = max(output_files, key=os.path.getctime)
+        latest = max(output_files, key=os.path.getmtime)
         print(f"  Loading: {latest}")
         with open(latest, "r") as f:
             data = json.load(f)
