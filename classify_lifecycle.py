@@ -93,9 +93,12 @@ def classify_narrative(enriched_narrative):
     try:
         result = json.loads(raw)
     except json.JSONDecodeError:
+        fallback_stage = enriched_narrative.get("stage_hint", "EMERGENCE")
+        if fallback_stage not in ["EMERGENCE", "EARLY_ACCELERATION", "LATE_ACCELERATION", "SATURATION", "DECAY"]:
+            fallback_stage = "EMERGENCE"
         result = {
             "narrative_name": enriched_narrative.get("name"),
-            "lifecycle_stage": "EMERGENCE",
+            "lifecycle_stage": fallback_stage,
             "confidence": 0.5,
             "reasoning": [
                 "Fallback classification — AI response could not be parsed.",

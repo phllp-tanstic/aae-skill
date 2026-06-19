@@ -1030,6 +1030,8 @@ python classify_lifecycle.py
 Run the live Dashboard
 ```bash
 # Start the API server:
+> **Important:** Run `python aae_skill.py` before starting the dashboard. The dashboard requires at least one pipeline output file to display data. Starting the server without running the pipeline first will return a 404 on the `/dashboard` endpoint.
+
 uvicorn api_server:app --reload --port 8000
 ```
 Open `dashboard.html` in your browser. The dashboard connects to the local server

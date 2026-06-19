@@ -17,8 +17,14 @@ def fetch_narratives(limit=10):
     url = f"{BASE}/v1/cryptocurrency/categories"
     params = {"limit": 50}
 
-    r = requests.get(url, headers=headers, params=params)
-    data = r.json()
+    try:
+        r = requests.get(url, headers=headers, params=params, timeout=15)
+        r.raise_for_status()
+        data = r.json()
+    except Exception as e:
+        print(f"  ERROR: CMC API call failed — {e}")
+        return []
+    narratives = []
 
     narratives = []
 
