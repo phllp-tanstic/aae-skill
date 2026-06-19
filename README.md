@@ -1,4 +1,4 @@
-# **Attention Arbitrage Engine (AAE)**
+# Attention Arbitrage Engine (AAE)
 
 An AI-powered narrative intelligence system that detects attention-price divergence, classifies narrative lifecycle stage, predicts narrative half-life, forecasts capital rotation, and generates backtestable trading strategies before market consensus forms.
 
@@ -8,11 +8,9 @@ An AI-powered narrative intelligence system that detects attention-price diverge
 ![Trust Wallet](https://img.shields.io/badge/Trust%20Wallet-Agent%20Kit-blue)
 ![Python](https://img.shields.io/badge/Python-3.11%2B-blue)
 
----
 
 
-
-## **Executive Summary**
+## Executive Summary
 
 **Project:** Attention Arbitrage Engine (AAE)
 
@@ -30,9 +28,9 @@ The Attention Arbitrage Engine (AAE) provides a systematic framework for detecti
 
 Built on CoinMarketCap data infrastructure, the system transforms raw narrative activity into reproducible trading signals that can be analyzed, validated, and integrated into automated or discretionary workflows. Native integration with BNB Chain and Trust Wallet extends the framework from signal generation to execution and portfolio management.
 
----
 
-## **Problem Statement**
+
+## Problem Statement
 
 **The Market Gap**
 
@@ -44,11 +42,11 @@ Most market participants lack a systematic framework for determining where a nar
 
 **Limitations of Existing Approaches**
 
-**Price-Based Indicators:** Traditional indicators such as RSI, MACD, and Bollinger Bands are derived from historical price action. They measure market response after capital has already entered a trade and provide limited insight into whether attention is accelerating before price movement occurs.
+Price-Based Indicators: Traditional indicators such as RSI, MACD, and Bollinger Bands are derived from historical price action. They measure market response after capital has already entered a trade and provide limited insight into whether attention is accelerating before price movement occurs.
 
-**Sentiment Monitoring Platforms:** Most sentiment tools track social activity, mentions, or engagement volume. While useful for measuring awareness, they do not distinguish between an emerging narrative and one that has already reached widespread market attention.
+Sentiment Monitoring Platforms: Most sentiment tools track social activity, mentions, or engagement volume. While useful for measuring awareness, they do not distinguish between an emerging narrative and one that has already reached widespread market attention.
 
-**Generic AI Analysis Tools:** Many AI-powered market tools summarize social feeds or market data using large language models but do not produce structured, quantitative outputs that can be validated, backtested, or incorporated into systematic trading workflows.
+Generic AI Analysis Tools: Many AI-powered market tools summarize social feeds or market data using large language models but do not produce structured, quantitative outputs that can be validated, backtested, or incorporated into systematic trading workflows.
 
 **How AAE Addresses the Gap**
 
@@ -66,9 +64,9 @@ Rather than analyzing price in isolation, AAE measures attention velocity across
 
 The result is a repeatable methodology for evaluating narrative-driven opportunities using measurable signals rather than discretionary interpretation.
 
----
 
-## **Solution Overview**
+
+## Solution Overview
 
 **High-Level Architecture**
 
@@ -130,9 +128,9 @@ AAE integrates multiple analytical components into a unified framework:
 
 Together, these components provide a repeatable methodology for transforming narrative activity into structured, testable trading signals.
 
----
 
-## **Skill-Based Architecture**
+
+## Skill-Based Architecture
 
 **Strategy Skill Implementation**
 
@@ -144,7 +142,7 @@ The skill is executed through:
 python aae_skill.py
 ```
 
-and produces structured JSON outputs compatible with the Quantopian-style strategy specification format required for Track 2 evaluation.
+and produces structured JSON outputs compatible with the Quantopian-style strategy.
 
 **Skill Composition**
 
@@ -389,9 +387,9 @@ It serves as the primary analytical framework for processing structured market d
 
 **Role:** Quantitative analytics and backtesting engine.
 
----
 
-### **Integrations**
+
+## Integrations
 
 AAE integrates with multiple data, intelligence, execution, and verification layers across the CoinMarketCap, BNB Chain, and Trust Wallet ecosystems. Each integration serves a specific role within the signal generation and strategy lifecycle.
 
@@ -492,6 +490,7 @@ Historical market data is used to evaluate generated strategy specifications aga
 **Contribution:** Empirical evaluation and backtesting support.
 
 
+
 ## Agent Orchestration
 
 AAE is orchestrated through a single execution entry point:
@@ -511,9 +510,9 @@ To maintain efficiency and reproducibility:
 
 This architecture minimizes redundant computation, reduces external API utilization, and ensures all downstream components operate from a consistent analytical state.
 
----
 
-### **Architecture**
+
+## Architecture
 
 ### System Architecture Overview
 
@@ -527,13 +526,14 @@ This architecture minimizes redundant computation, reduces external API utilizat
 
 ![alt text](image-3.png)
 
----
 
-### **How It Works**
+
+
+## How It Works
 
 AAE transforms raw market and narrative data into structured, backtestable strategy specifications through a multi-stage analysis pipeline.
 
-#### **Step 1 — Data Collection**
+### Step 1 — Data Collection
 
 **Module:** `fetch_narratives.py`
 
@@ -554,7 +554,7 @@ The result is a ranked set of narrative categories that serve as the foundation 
 **Output:** Ranked narrative dataset.
 
 
-#### **Step 2 — Signal Processing**
+### Step 2 — Signal Processing
 
 **Modules:** `score_velocity.py`, `check_divergence.py`
 
@@ -575,7 +575,7 @@ Generated signals include:
 **Output:** Quantitative narrative signals.
 
 
-#### **Step 3 — Market Context Enrichment**
+### Step 3 — Market Context Enrichment
 
 **Module:** `enrich_narratives.py`
 
@@ -588,7 +588,7 @@ This process allows identical signals to be interpreted differently depending on
 **Output:** Regime-aware narrative intelligence.
 
 
-#### **Step 4 — AI Intelligence Processing**
+### Step 4 — AI Intelligence Processing
 
 **Modules:** `classify_lifecycle.py`, `predict_rotation.py`
 
@@ -610,7 +610,7 @@ A separate forecasting process analyzes all classified narratives simultaneously
 **Output:** Structured narrative intelligence and rotation forecasts.
 
 
-#### **Step 5 — Strategy Generation**
+### Step 5 — Strategy Generation
 
 **Module:** `generate_strategy.py`
 
@@ -631,7 +631,7 @@ Generated parameters include:
 **Output:** Structured strategy specifications.
 
 
-#### **Step 6 — Opportunity Ranking and Orchestration**
+### Step 6 — Opportunity Ranking and Orchestration
 
 **Module:** `aae_skill.py`
 
@@ -644,11 +644,11 @@ Results are persisted for downstream integrations, execution workflows, and hist
 **Output:** Ranked narrative opportunities and consolidated strategy output.
 
 
-#### **Step 7 — Output Generation**
+### Step 7 — Output Generation
 
 The final stage packages intelligence into formats suitable for both human analysis and machine consumption.
 
-#### Terminal Dashboard
+### Terminal Dashboard
 
 A human-readable report containing:
 
@@ -659,7 +659,7 @@ A human-readable report containing:
 * Rotation forecasts.
 * Strategy specifications.
 
-#### Strategy Specification Output
+### Strategy Specification Output
 
 A machine-readable JSON document containing:
 
@@ -670,7 +670,7 @@ A machine-readable JSON document containing:
 * Risk parameters.
 * Metadata and audit information.
 
-#### Backtesting Results
+### Backtesting Results
 
 A validation report containing:
 
@@ -681,7 +681,7 @@ A validation report containing:
 * Performance statistics.
 
 
-#### **End-to-End Pipeline**
+## End-to-End Pipeline
 
 ```text
 Market Data Collection
@@ -707,9 +707,9 @@ Output Generation
 
 The pipeline executes as a single coordinated workflow, ensuring all downstream intelligence, forecasts, and strategy specifications are generated from a consistent analytical state.
 
----
 
-### **Repository Structure**
+
+## Repository Structure
 
 ```text
 aae-skill/
@@ -765,9 +765,9 @@ aae-skill/
 
 The repository is organized around a linear intelligence pipeline. Each stage enriches the output of the previous stage, transforming raw market and narrative data into lifecycle intelligence, capital rotation forecasts, and executable strategy specifications. Integration modules operate independently from the core analytical workflow, consuming generated outputs for registration, verification, execution, and ecosystem interoperability without altering the underlying analysis pipeline.
 
----
 
-### **Core Logic**
+
+## Core Logic
 
 **Signal Evaluation Methodology**
 
@@ -808,9 +808,9 @@ Regime adjustment introduces a macro-level risk overlay. During BTC_DOMINANCE co
 
 The classifier receives a structured JSON payload containing all quantitative signal inputs and produces standardized output. The system prompt enforces three requirements. Stage assignment must correspond to one of five predefined lifecycle stages with explicit qualification criteria. Reasoning must reference specific input data rather than generic observations. Half-life estimates must be derived from the historical half-life reference table supplied within the prompt. These constraints ensure that classification outputs remain data-driven, consistent, and reproducible.
 
----
 
-### **Data Sources**
+
+## Data Sources
 
 **CoinMarketCap Data**
 
@@ -848,9 +848,9 @@ This dataset is used exclusively by `backtest_spec.py` and is not part of the li
 
 A known limitation is that smaller-cap assets are frequently unavailable through Yahoo Finance. The backtesting engine accounts for this by excluding unsupported assets and reporting results only for assets with confirmed historical data availability.
 
----
 
-### **Installation**
+
+## Installation
 
 Begin by cloning the repository and navigating into the project directory.
 
@@ -924,15 +924,16 @@ python -c "import requests, os; from dotenv import load_dotenv; load_dotenv(); r
 ```
 
 ```bash
+
 # Verify Trust Wallet Agent Kit connectivity
 twak price BNB
 ```
 
 Successful execution of both commands confirms that the environment, API credentials, and external integrations are configured correctly.
 
----
 
-### **Running the Project**
+
+## Running the Project
 
 **Execute the Full Pipeline**
 
@@ -1041,48 +1042,53 @@ auto-refresh all data.
 The dashboard requires the uvicorn server to be running. Open a second terminal
 for running other commands while the server stays active in the first terminal.
 
----
 
-### **Demo**
 
-#### **Live Pipeline Execution**
+## Demo
 
-The following results were generated during a live execution of Attention Arbitrage Engine v2.0 on **2026-06-10 02:22:49 UTC**.
+### Live Pipeline Execution
+
+The following results were generated during a live execution of Attention Arbitrage Engine v2.0 on **2026-06-17 23:16:34 UTC**.
 
 The engine identified **LaunchZone** as the leading narrative opportunity, classifying it as **EMERGENCE** with an attention score of **100/100**, relative alpha of **+10,216% versus BTC baseline**, price confirmation of **22.03%**, opportunity score of **70/100**, and confidence of **80%**. The classification estimated a narrative half-life of approximately **14 days** with a **30%** decay probability, matched to the **Memecoin Supercycle 2024** historical analog with 60% similarity.
 
-The engine also identified **Launchzone** as an **EMERGENCE** stage narrative with an attention score of **77.13/100**, relative alpha of **+148% versus market**, price confirmation of **5.18%**, and an estimated half-life of **14 days**.
+The narrative rotation model identified **LaunchZone** as the current market leader and forecast a rotation into **Energy** with **70% confidence** over an estimated **10-day** period, driven by LaunchZone approaching peak velocity and capital seeking early acceleration narratives.
 
-The narrative rotation model identified **Intent** as the current market leader and forecast a rotation into the **Immutable zkEVM Ecosystem** with **70% confidence** over an estimated **14-day** period.
-
-#### **Generated Strategy Specification**
+### Generated Strategy Specification
 
 For each classified narrative, the engine generates a structured strategy specification containing signal metrics, market context, execution parameters, risk controls, and BNB Chain execution metadata.
 
 ```json
 {
-  "spec_id": "AAE-20260610-0223-EAR",
-  "narrative": "Intent",
-  "lifecycle_stage": "EARLY_ACCELERATION",
-  "confidence": 0.80,
-  "opportunity_score": 60,
+  "spec_id": "AAE-20260617-231714-EME-LAUN",
+  "narrative": "LaunchZone",
+  "lifecycle_stage": "EMERGENCE",
+  "confidence": 0.68,
+  "opportunity_score": 70,
   "market_context": {
     "regime": "BTC_DOMINANCE",
-    "btc_dominance": 58.04
+    "btc_dominance": 58.26
   },
   "signal_data": {
-    "velocity_score": 70.05,
-    "volume_change_24h": 75.09,
-    "avg_price_change_24h": 18.97,
-    "divergence_signal": "MODERATE CONVICTION"
+    "velocity_score": 100,
+    "volume_change_24h": 10236.93,
+    "avg_price_change_24h": 22.03,
+    "relative_alpha_vs_btc": 10216.89,
+    "divergence_signal": "MODERATE CONVICTION — strong divergence but BTC dominance headwind"
   },
   "strategy": {
-    "type": "Momentum Ride",
-    "position_size": "3-5% of portfolio per narrative",
-    "stop_loss": "-10% from entry price",
-    "time_horizon": "5-14 days"
+    "type": "Early Position Accumulation",
+    "position_size": "2-4% of portfolio per narrative",
+    "stop_loss": "-15% from entry price",
+    "time_horizon": "7-21 days"
   },
-  "backtestable_assets": ["VELVET", "COW", "ACX"]
+  "backtestable_assets": ["ZUKI", "BCOIN", "LZ"],
+  "bnb_execution_context": {
+    "chain": "BNB Smart Chain",
+    "dex": "PancakeSwap V3",
+    "order_type": "LIMIT",
+    "agent_id": "1345"
+  }
 }
 ```
 
@@ -1098,63 +1104,50 @@ For each classified narrative, the engine generates a structured strategy specif
 
 **Pass rate: 33% (3/9 assets)** in BTC dominance bear market conditions. Stop losses firing correctly on all losing trades confirms risk management integrity. Backtest uses 30-day CMC Pro OHLCV data.
 
-#### **Historical Validation**
-
-Generated strategy specifications are validated against historical market data using a 30-day backtesting framework.
-
-| Asset | Narrative         | Stage     | Return  | Max Drawdown | Sharpe Ratio | Exit Reason        |
-| ----- | ----------------- | --------- | ------- | ------------ | ------------ | ------------------ |
-| MRVL  | xStocks Ecosystem | EMERGENCE | +33.39% | 7.48%        | 9.14         | Profit target +40% |
-| RIF   | Filesharing       | EMERGENCE | +15.94% | 16.46%       | 2.47         | Stop loss -15%     |
-| FIL   | Filesharing       | EMERGENCE | -11.87% | 11.87%       | -7.08        | Stop loss -15%     |
-| AR    | Filesharing       | EMERGENCE | -12.90% | 12.90%       | -4.71        | Stop loss -15%     |
-
-These results were produced using the strategy specifications generated by the engine and evaluated under the defined position sizing, stop-loss, and exit rules.
-
 #### **TWAK-Signed Strategy Artifact**
 
-Strategy specifications can be cryptographically signed using Trust Wallet Agent Kit, producing a verifiable artifact tied to the generated signal.
+Strategy specifications are cryptographically signed using Trust Wallet Agent Kit, producing a verifiable artifact tied to the generated signal.
 
 ```json
 {
-  "spec_id": "AAE-20260610-0223-EAR",
-  "narrative": "Intent",
-  "spec_hash": "fac94b70371fa4fe7ba3fc43d2a8c1c7...",
-  "signature": "7063367fece51cc5dab113e6645f3780...",
+  "spec_id": "AAE-20260617-231714-EME-LAUN",
+  "narrative": "LaunchZone",
+  "spec_hash": "bbd7e16a79a4c8623485b2d24eb9d7c8...",
+  "signature": "7760a097f4403873b4393ae6d2e903de...",
   "signed_by": "0x28063194Fb2eCf43c98DB16e2EC9A97FbfE8C358",
   "chain": "bsc",
   "method": "ECDSA secp256k1",
-  "signed_at": "2026-06-10T02:04:29"
+  "signed_at": "2026-06-17T23:31:09"
 }
 ```
 
----
 
-### **Innovation**
+
+## Innovation
 
 The core innovation of Attention Arbitrage Engine (AAE) is the systematic measurement of narrative attention velocity and its divergence from token price performance. While CoinMarketCap's category infrastructure provides structured narrative-level market data, AAE transforms that data into a quantitative signal framework designed to identify narratives where attention is accelerating faster than price discovery.
 
-#### **Key Innovations**
+**Key Innovations**
 
-**Narrative Velocity Divergence:** AAE measures narrative-level attention growth using CoinMarketCap category volume data and compares it against aggregate token price performance within the same narrative. The resulting divergence signal identifies situations where attention expansion materially exceeds price confirmation, creating a framework for detecting potential narrative mispricing before it is fully reflected in asset valuations.
+Narrative Velocity Divergence: AAE measures narrative-level attention growth using CoinMarketCap category volume data and compares it against aggregate token price performance within the same narrative. The resulting divergence signal identifies situations where attention expansion materially exceeds price confirmation, creating a framework for detecting potential narrative mispricing before it is fully reflected in asset valuations.
 
-**AI Lifecycle Classification:** AAE introduces a five-stage narrative lifecycle model consisting of EMERGENCE, EARLY_ACCELERATION, LATE_ACCELERATION, SATURATION, and DECAY. Classification is performed using quantitative signal inputs and produces structured reasoning that references specific metrics from the underlying dataset. This creates an auditable classification framework that moves beyond binary bullish or bearish interpretations.
+AI Lifecycle Classification: AAE introduces a five-stage narrative lifecycle model consisting of EMERGENCE, EARLY_ACCELERATION, LATE_ACCELERATION, SATURATION, and DECAY. Classification is performed using quantitative signal inputs and produces structured reasoning that references specific metrics from the underlying dataset. This creates an auditable classification framework that moves beyond binary bullish or bearish interpretations.
 
-**Narrative Half-Life Estimation:** The engine estimates expected narrative persistence using category-specific historical archetypes. Memecoin narratives are modeled with a 7–14 day attention horizon, exchange narratives with 14–30 days, DeFi and yield narratives with 30–60 days, infrastructure narratives with 60–120 days, and RWA or institutional narratives with 90–180 days. These estimates are incorporated directly into strategy time horizons and risk management parameters.
+Narrative Half-Life Estimation: The engine estimates expected narrative persistence using category-specific historical archetypes. Memecoin narratives are modeled with a 7–14 day attention horizon, exchange narratives with 14–30 days, DeFi and yield narratives with 30–60 days, infrastructure narratives with 60–120 days, and RWA or institutional narratives with 90–180 days. These estimates are incorporated directly into strategy time horizons and risk management parameters.
 
-**Capital Rotation Forecasting:** AAE generates forward-looking narrative rotation forecasts by identifying the current attention leader, estimating the most likely destination for subsequent capital flows, and calculating an expected transition window. This extends the system beyond signal detection into narrative sequencing and market structure analysis.
+Capital Rotation Forecasting: AAE generates forward-looking narrative rotation forecasts by identifying the current attention leader, estimating the most likely destination for subsequent capital flows, and calculating an expected transition window. This extends the system beyond signal detection into narrative sequencing and market structure analysis.
 
-**Historical Analog Matching:** Each narrative classification is matched against historical market events and assigned a similarity score. The resulting analog provides contextual information for evaluating potential outcomes, risk characteristics, and lifecycle progression based on previously observed market behavior.
+Historical Analog Matching: Each narrative classification is matched against historical market events and assigned a similarity score. The resulting analog provides contextual information for evaluating potential outcomes, risk characteristics, and lifecycle progression based on previously observed market behavior.
 
-**Verifiable Strategy Provenance:** Every generated strategy specification can be cryptographically signed using Trust Wallet Agent Kit through ECDSA secp256k1 signatures generated from a self-custodied BNB Chain wallet. The signed artifact provides verifiable proof of strategy origin, generation time, and parameter integrity, enabling independent verification of strategy provenance.
+Verifiable Strategy Provenance: Every generated strategy specification can be cryptographically signed using Trust Wallet Agent Kit through ECDSA secp256k1 signatures generated from a self-custodied BNB Chain wallet. The signed artifact provides verifiable proof of strategy origin, generation time, and parameter integrity, enabling independent verification of strategy provenance.
 
-#### **Business Value**
+**Business Value**
 
 AAE is designed for deployment through the CoinMarketCap Skills Marketplace, where it can be exposed as a callable skill and monetized through x402 payment flows. The output is delivered as a structured strategy specification containing market context, signal data, lifecycle classification, risk controls, execution parameters, and historical validation data. This format enables direct consumption by trading agents, quantitative research systems, and institutional investment workflows.
 
----
 
-### **Built With**
+
+## Built With
 
 AAE is built on a combination of market data infrastructure, AI inference, agent protocols, and on-chain tooling.
 
@@ -1169,14 +1162,14 @@ AAE is built on a combination of market data infrastructure, AI inference, agent
 | Groq (LLaMA 3.3 70B)   | AI Infrastructure           | Lifecycle classification and narrative forecasting       | Powers both the narrative classification engine and capital rotation forecasting system                                          |
 | Python 3.11            | Runtime                     | Application execution                                    | Orchestrates all core pipeline modules and integrations                                                                          |
 | MCP Python SDK         | Protocol Infrastructure     | MCP client implementation                                | Manages connectivity and communication with CoinMarketCap MCP services                                                           |
-| yfinance               | Historical Data             | Market validation dataset                                | Supplies 30-day OHLCV data for backtesting and strategy validation                                                               |
+| CMC Pro API               | Historical Data             | Market validation dataset                                | Supplies 30-day OHLCV data for backtesting and strategy validation                                                               |
 | pandas                 | Analytics                   | Quantitative computation                                 | Performs return analysis, drawdown calculations, and Sharpe ratio computation                                                    |
 | PancakeSwap V3         | DEX Infrastructure          | Execution context                                        | Provides token pair routing and execution metadata for generated strategy specifications                                         |
 | web3.py                | Blockchain Infrastructure   | BNB Chain interaction                                    | Enables blockchain connectivity and smart contract communication                                                                 |
 
----
 
-### **On-Chain Verification**
+
+## On-Chain Verification
 
 AAE is registered on BSC Testnet through the ERC-8004 agent registry as **Agent ID 1345**.
 
@@ -1192,25 +1185,25 @@ AAE is registered on BSC Testnet through the ERC-8004 agent registry as **Agent 
 
 **Network Note:** The agent is registered on BSC Testnet for demonstration and evaluation purposes. Registration was completed using the standard ERC-8004 workflow through the BNB AI Agent SDK.
 
----
 
-### **Roadmap**
 
-#### Near-Term
+## Roadmap
+
+**Near-Term**
 
 Planned improvements include integrating Claude Opus for enhanced narrative classification and analog matching, adding CoinMarketCap news velocity signals through MCP, launching a web dashboard for real-time narrative monitoring, and supporting paid strategy generation workflows through the BNB Agent SDK APEX protocol.
 
-#### Medium-Term
+**Medium-Term**
 
 Future development will focus on deployment to the CoinMarketCap Skills Marketplace, expansion of narrative analysis beyond BNB Chain to additional ecosystems, portfolio-level strategy generation with capital allocation logic, and migration to a real-time signal processing architecture.
 
-#### Long-Term
+**Long-Term**
 
 Long-term goals include an institutional API, on-chain publication of narrative velocity signals, and narrative-based index products powered by AAE classifications and rebalancing models.
 
----
 
-### **Conclusion**
+
+## Conclusion
 
 Attention Arbitrage Engine (AAE) was built to address a simple problem: narrative cycles drive a significant share of crypto market activity, yet there is no standardized framework for measuring narrative momentum, identifying lifecycle stage, and converting those signals into actionable strategies. AAE combines CoinMarketCap narrative data, AI-powered lifecycle classification, capital rotation forecasting, historical validation, BNB Chain infrastructure, and Trust Wallet Agent Kit signing into a single end-to-end workflow. The result is a system that transforms narrative-level market activity into structured, explainable, and verifiable strategy specifications.
 
